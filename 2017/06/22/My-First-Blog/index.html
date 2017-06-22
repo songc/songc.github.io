@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>My First Blog | Hexo</title>
+  <title>Anaconda 安装和遇到的问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="My First Blog">
+  <meta name="description" content="Anaconda-navigator 闪退 原因，我安装玩anaconda后并没有直接打开anaconda-navigator，而是先打开了jupyter notebook 玩了一会，然后我的C:\User\用户名\下就产生了一个.jupyter文件夹，然后造成了冲突。我在网上查找了下发现有些人也遇到了这个问题，他们的问题是和以前安装的anaconda所产生的文件冲突造成的，我是卸载了anacon">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Anaconda 安装和遇到的问题">
 <meta property="og:url" content="http://yoursite.com/2017/06/22/My-First-Blog/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:updated_time" content="2017-06-22T11:56:34.749Z">
+<meta property="og:description" content="Anaconda-navigator 闪退 原因，我安装玩anaconda后并没有直接打开anaconda-navigator，而是先打开了jupyter notebook 玩了一会，然后我的C:\User\用户名\下就产生了一个.jupyter文件夹，然后造成了冲突。我在网上查找了下发现有些人也遇到了这个问题，他们的问题是和以前安装的anaconda所产生的文件冲突造成的，我是卸载了anacon">
+<meta property="og:updated_time" content="2017-06-22T16:33:49.041Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My First Blog">
+<meta name="twitter:title" content="Anaconda 安装和遇到的问题">
+<meta name="twitter:description" content="Anaconda-navigator 闪退 原因，我安装玩anaconda后并没有直接打开anaconda-navigator，而是先打开了jupyter notebook 玩了一会，然后我的C:\User\用户名\下就产生了一个.jupyter文件夹，然后造成了冲突。我在网上查找了下发现有些人也遇到了这个问题，他们的问题是和以前安装的anaconda所产生的文件冲突造成的，我是卸载了anacon">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -74,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      My First Blog
+      Anaconda 安装和遇到的问题
     </h1>
   
 
@@ -82,13 +86,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="Anaconda-navigator-闪退"><a href="#Anaconda-navigator-闪退" class="headerlink" title="Anaconda-navigator 闪退"></a>Anaconda-navigator 闪退</h3><blockquote>
+<p>原因，我安装玩anaconda后并没有直接打开anaconda-navigator，而是先打开了jupyter notebook 玩了一会，然后我的<code>C:\User\用户名\</code>下就产生了一个<code>.jupyter</code>文件夹，然后造成了冲突。我在网上查找了下发现有些人也遇到了这个问题，他们的问题是和以前安装的anaconda所产生的文件冲突造成的，我是卸载了anaconda重新安装的，安装的时候删除了用户目录下所用的和anaconda有关的文件夹，然后就可以正常的启动了。上述的文件冲突，是我的猜想，我是重新安装成功后才想起可能是这个原因的，并没有测试过，但是我想结合网上其他人的问题，我的猜测应该是正确的。</p>
+</blockquote>
+<h3 id="Anaconda-更换源"><a href="#Anaconda-更换源" class="headerlink" title="Anaconda 更换源"></a>Anaconda 更换源</h3><p>有关Anaconda更换源，我在网上查了下了，发现有2个版本，一个是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</div><div class="line">conda config --set show_channel_urls yes</div></pre></td></tr></table></figure></p>
+<p>还有一种是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conda config --add channels &apos;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/&apos;</div><div class="line">conda config --set show_channel_urls yes</div></pre></td></tr></table></figure></p>
+<p>一个在url上有引号，一个没有，我也不太清楚那个对，但是查找资料发现使用该命令会在用户的文件夹下生成一个<code>.condarc</code>文件夹，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">channels:</div><div class="line">  - &quot;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/&quot;</div><div class="line">  - defaults</div><div class="line">show_channel_urls: true</div></pre></td></tr></table></figure></p>
+<p>网上提到这个是要加双引号的。我就在直接在这里加了双引号。后来我发现可以在anaconda-navigator下的environment页面中有个channls选项可以直接可视化的编辑channls选项。</p>
+<h3 id="Jupyter-notebook-更换Python版本"><a href="#Jupyter-notebook-更换Python版本" class="headerlink" title="Jupyter notebook 更换Python版本"></a>Jupyter notebook 更换Python版本</h3><p>我通过anaconda创建了Python2.7的环境，anaconda的默认是3.4的，但是我在notebook中NEW下拉选项中无法选择我新建的python2.7环境，最后发现是要在Python2.7的环境中安装IPython-notebook这个包才可以。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/22/My-First-Blog/" data-id="cj48dlixj000178vn4kf2io2k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/22/My-First-Blog/" data-id="cj48ndtci0000tkvnpjkejl6u" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
     </footer>
   </div>
   
@@ -114,9 +128,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Python/" style="font-size: 10px;">Python</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -135,7 +163,7 @@
       <ul>
         
           <li>
-            <a href="/2017/06/22/My-First-Blog/">My First Blog</a>
+            <a href="/2017/06/22/My-First-Blog/">Anaconda 安装和遇到的问题</a>
           </li>
         
           <li>
