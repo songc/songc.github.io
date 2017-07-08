@@ -437,12 +437,16 @@
       
         
           
-            <h1 id="Ubuntu-使用中的一些问题以及解决办法"><a href="#Ubuntu-使用中的一些问题以及解决办法" class="headerlink" title="Ubuntu 使用中的一些问题以及解决办法"></a>Ubuntu 使用中的一些问题以及解决办法</h1><h3 id="双系统修改Grub的启动顺序"><a href="#双系统修改Grub的启动顺序" class="headerlink" title="双系统修改Grub的启动顺序"></a>双系统修改Grub的启动顺序</h3><p>安装Windows和Ubuntu的双系统后，根据修改可以修改默认的grub的启动顺序，方便我们使用，不然可能出现，开机后忘记进行系统选择，然后不得不重新关机启动系统。</p>
+            <h1 id="Ubuntu-使用中的一些问题以及解决办法"><a href="#Ubuntu-使用中的一些问题以及解决办法" class="headerlink" title="Ubuntu 使用中的一些问题以及解决办法"></a>Ubuntu 使用中的一些问题以及解决办法</h1><p>{!–more–}</p>
+<h3 id="双系统修改Grub的启动顺序"><a href="#双系统修改Grub的启动顺序" class="headerlink" title="双系统修改Grub的启动顺序"></a>双系统修改Grub的启动顺序</h3><p>安装Windows和Ubuntu的双系统后，根据修改可以修改默认的grub的启动顺序，方便我们使用，不然可能出现，开机后忘记进行系统选择，然后不得不重新关机启动系统。</p>
 <p>启动顺序可以通过修改grub的配置文件实现首先<code>sudo gedit /etc/default/grub</code> 打开配置文件，然后找到<code>GRUB_DEFAULT=0</code>这一行，后边的数字就是默认的启动系统。<code>0</code>代表默认的系统是第一个系统，然后依次往下，修改该数字设置自己想要的默认启动的系统。修改完成后保存。然后在终端输入<code>sudo update-grub</code>进行更新。下次启动默认启动的系统就会改为你选择的系统。</p>
 <h3 id="Ubuntu关机后主机还在运行。"><a href="#Ubuntu关机后主机还在运行。" class="headerlink" title="Ubuntu关机后主机还在运行。"></a>Ubuntu关机后主机还在运行。</h3><p>Ubuntu 遇到了关机后只是显示屏黑了，但是主机还是在运行。只能通过电源键强制关机。</p>
 <p>通过查找资料发现解决办法是修改grub的配置的通过修改</p>
 <p>首先打开配置文件<code>sudo gedit /etc/default/grub</code>。然后修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash&quot;</div><div class="line">to</div><div class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash acpi=force&quot;</div></pre></td></tr></table></figure></p>
 <p>然后在终端运行<code>sudo update-grub</code> 更新配置文件使其生效。</p>
+<blockquote>
+<p>我在第一次修改后，使用该方法后确实可以正常的关闭电脑了，但是第二次的时候又出现不能正常关机的情况了，然后我有通过一番查找，尝试使用poweroff关机命令，然后成功的正常关机的，但是该命令不会将内存中的数据写入磁盘就关机，有可能造成数据的丢失，所以不推荐使用该命令。</p>
+</blockquote>
 
           
         
@@ -555,9 +559,8 @@
         
           
             <h1 id="Decision-Tree"><a href="#Decision-Tree" class="headerlink" title="Decision Tree"></a>Decision Tree</h1><blockquote>
-<p>机器学习中，决策树是一个预测模型；他代表的是对象属性与对象值之间的一种映射关系。树中每个节点表示某个对象，而每个分叉路径则代表某个可能的属性值，而每个叶节点则对应从根节点到该叶节点所经历的路径所表示的对象的值。决策树仅有单一输出，若欲有复数输出，可以建立独立的决策树以处理不同输出。 数据挖掘中决策树是一种经常要用到的技术，可以用于分析数据，同样也可以用来作预测。</p>
+<p>机器学习中，决策树是一个预测模型；他代表的是对象属性与对象值之间的一种映射关系。树中每个节点表示某个对象，而每个分叉路径则代表某个可能的属性值，而每个叶节点则对应从根节点到该叶节点所经历的路径所表示的对象的值。决策树仅有单一输出，若欲有复数输出，可以建立独立的决策树以处理不同输出。 数据挖掘中决策树是一种经常要用到的技术，可以用于分析数据，同样也可以用来作预测。<br>{!–more–}<br>根节点代表整个训练样本集,通过在每个节点对某个属性的测试验证,算法递归得将数据集分成更小的数据集.某一节点对应的子树对应着原数据集中满足某一属性测试的部分数据集.这个递归过程一直进行下去,直到某一节点对应的子树对应的数据集都属于同一个类为止，例如数据集对应得到的决策树如下:<img src="/2017/06/26/Decision-Tree/image1.png" alt="image1.png" title=""></p>
 </blockquote>
-<p>根节点代表整个训练样本集,通过在每个节点对某个属性的测试验证,算法递归得将数据集分成更小的数据集.某一节点对应的子树对应着原数据集中满足某一属性测试的部分数据集.这个递归过程一直进行下去,直到某一节点对应的子树对应的数据集都属于同一个类为止，例如数据集对应得到的决策树如下:<img src="/2017/06/26/Decision-Tree/image1.png" alt="image1.png" title=""></p>
 <p>分类树中的测试是怎样的？</p>
 <p>分类树中的测试是针对某一个样本属性进行的测试。样本的属性有两种，一种是离散变量，一种是连续变量。对于离散变量，这很简单，离散变量对应着多个值，每个值就对应着测试的一个分支，测试就是验证样本对应的属性值对应哪个分支。这样数据集就会被分成几个小组。对于连续变量，所有连续变量的测试分支都是2条，其测试分支分别对应着{&lt;=A?,&gt;a?}(a就是对应的阀值)。</p>
 <p>如何选择测试？</p>
@@ -682,11 +685,11 @@
 <ol>
 <li><p>支持向量机（Support Vector Machine，常简称为SVM）是一种监督式学习的方法，可广泛地应用于统计分类以及回归分析。支持向量机属于一般化线性分类器，这族分类器的特点是他们能够同时最小化经验误差与最大化几何边缘区，因此支持向量机也被称为最大边缘区分类器。</p>
 </li>
-<li><p>支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间隔超平面。在分开数据的超平面的两边建有两个互相平行的超平面，分隔超平面使两个平行超平面的距离最大化。假定平行超平面间的距离或差距越大，分类器的总误差越小。</p>
+<li><p>支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间隔超平面。在分开数据的超平面的两边建有两个互相平行的超平面，分隔超平面使两个平行超平面的距离最大化。假定平行超平面间的距离或差距越大，分类器的总误差越小。<br>{!–more–}<br>在分类时，可能的符合要求的决策面会有多个，SVM会选择间隔最大的那个。对于高维空间中的分类，SVM可以通过<strong>核函数</strong>来解决高维空间的分类问题。对于下图中的3条线，SVM会选择中间的作为决策面，因为它距离2边的分类的间隔最大。<img src="/2017/06/26/Support-Vector-Machine/image1.jpg" alt="image1.jpg" title=""><br><strong>SVM 在边界分明时效果好，数据量大的时候效果下降，并且训练时间会比较的长，有太大的噪声时，效果也不太好</strong> 同样的数据采用naive bayes算法，训练时间只需1s多，但是采用SVM时(kernel=linear,其他参数默认),训练时间花了193s多，我都以为 是程序卡死了。<br>sklearn 中支持向量机的基本使用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from sklearn import svm</div><div class="line">sclt=svm.SVC(kernel=&apos;linear&apos;)</div><div class="line">t0 = time()</div><div class="line">sclt.fit(features_train,labels_train);</div><div class="line">print &quot;train time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">t0 = time()</div><div class="line">labels_predict=sclt.predict(features_test)</div><div class="line">print &quot;predict time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">accuracy_score(labels_test,labels_predict)</div></pre></td></tr></table></figure>
 </li>
 </ol>
 </blockquote>
-<p>在分类时，可能的符合要求的决策面会有多个，SVM会选择间隔最大的那个。对于高维空间中的分类，SVM可以通过<strong>核函数</strong>来解决高维空间的分类问题。对于下图中的3条线，SVM会选择中间的作为决策面，因为它距离2边的分类的间隔最大。<img src="/2017/06/26/Support-Vector-Machine/image1.jpg" alt="image1.jpg" title=""><br><strong>SVM 在边界分明时效果好，数据量大的时候效果下降，并且训练时间会比较的长，有太大的噪声时，效果也不太好</strong> 同样的数据采用naive bayes算法，训练时间只需1s多，但是采用SVM时(kernel=linear,其他参数默认),训练时间花了193s多，我都以为 是程序卡死了。<br>sklearn 中支持向量机的基本使用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from sklearn import svm</div><div class="line">sclt=svm.SVC(kernel=&apos;linear&apos;)</div><div class="line">t0 = time()</div><div class="line">sclt.fit(features_train,labels_train);</div><div class="line">print &quot;train time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">t0 = time()</div><div class="line">labels_predict=sclt.predict(features_test)</div><div class="line">print &quot;predict time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">accuracy_score(labels_test,labels_predict)</div></pre></td></tr></table></figure></p>
 <p>其中该算法有3个比较重要的参数分别是Kernel(=linear，rbf，),C(=整数), kernel是linear时，决策面是个线性的，是一条直线，kernel是rbf时，决策面试不规则的直线。</p>
 
           
@@ -802,8 +805,7 @@
             <h1 id="Naive-bayes-classifier"><a href="#Naive-bayes-classifier" class="headerlink" title="Naive-bayes classifier"></a>Naive-bayes classifier</h1><blockquote>
 <p>贝叶斯定理</p>
 <p>贝叶斯定理解决了现实生活里经常遇到的问题：已知某条件概率，如何得到两个事件交换后的概率，也就是在已知P(A|B)的情况下如何求得P(B|A)。这里先解释什么是条件概率：</p>
-<p>表示事件B已经发生的前提下，事件A发生的概率，叫做事件B发生下事件A的条件概率。其基本求解公式为：<img src="/2017/06/26/Naive-Bayes/image1.gif" alt="image1.gif" title="">。</p>
-<p>贝叶斯定理之所以有用，是因为我们在生活中经常遇到这种情况：我们可以很容易直接得出P(A|B)，P(B|A)则很难直接得出，但我们更关心P(B|A)，贝叶斯定理就为我们打通从P(A|B)获得P(B|A)的道路。</p>
+<p>表示事件B已经发生的前提下，事件A发生的概率，叫做事件B发生下事件A的条件概率。其基本求解公式为：<img src="/2017/06/26/Naive-Bayes/image1.gif" alt="image1.gif" title="">。<br>{!–more–}<br>贝叶斯定理之所以有用，是因为我们在生活中经常遇到这种情况：我们可以很容易直接得出P(A|B)，P(B|A)则很难直接得出，但我们更关心P(B|A)，贝叶斯定理就为我们打通从P(A|B)获得P(B|A)的道路。</p>
 <p>下面不加证明地直接给出贝叶斯定理：<img src="/2017/06/26/Naive-Bayes/image2.gif" alt="image2.gif" title=""></p>
 <p>在机器学习中，朴素贝叶斯分类器是一系列以<strong>假设特征之间强（朴素）独立下</strong>运用贝叶斯定理为基础的简单概率分类器。朴素贝叶斯自20世纪50年代已广泛研究。在20世纪60年代初就以另外一个名称引入到文本信息检索界中， 并仍然是文本分类的一种热门（基准）方法，文本分类是以词频为特征判断文件所属类别或其他（如垃圾邮件、合法性、体育或政治等等）的问题。通过适当的预处理，它可以与这个领域更先进的方法（包括支持向量机）相竞争.它在自动医疗诊断中也有应用。</p>
 </blockquote>
@@ -921,8 +923,7 @@
         
           
             <h1 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h1><blockquote>
-<p>在机器学习中，随机森林是一个包含多个决策树的分类器，并且其输出的类别是由个别树输出的类别的众数而定。 Leo Breiman和Adele Cutler发展出推论出随机森林的算法。而”Random Forests”是他们的商标。这个术语是1995年由贝尔实验室的Tin Kam Ho所提出的随机决策森林（random decision forests）而来的。这个方法则是结合Breimans的”Bootstrap aggregating”想法和Ho的”random subspace method” 以建造决策树的集合。</p>
-<p>根据下列算法而建造每棵树：<br>用N来表示训练用例（样本）的个数，M表示特征数目。<br>输入特征数目m，用于确定决策树上一个节点的决策结果；其中m应远小于M。<br>从N个训练用例（样本）中以有放回抽样的方式，取样N次，形成一个训练集（即bootstrap取样），并用未抽到的用例（样本）作预测，评估其误差。<br>对于每一个节点，随机选择m个特征，决策树上每个节点的决定都是基于这些特征确定的。根据这m个特征，计算其最佳的分裂方式。<br>每棵树都会完整成长而不会剪枝（Pruning，这有可能在建完一棵正常树状分类器后会被采用）。</p>
+<p>在机器学习中，随机森林是一个包含多个决策树的分类器，并且其输出的类别是由个别树输出的类别的众数而定。 Leo Breiman和Adele Cutler发展出推论出随机森林的算法。而”Random Forests”是他们的商标。这个术语是1995年由贝尔实验室的Tin Kam Ho所提出的随机决策森林（random decision forests）而来的。这个方法则是结合Breimans的”Bootstrap aggregating”想法和Ho的”random subspace method” 以建造决策树的集合。<br>{!–more–}<br>根据下列算法而建造每棵树：<br>用N来表示训练用例（样本）的个数，M表示特征数目。<br>输入特征数目m，用于确定决策树上一个节点的决策结果；其中m应远小于M。<br>从N个训练用例（样本）中以有放回抽样的方式，取样N次，形成一个训练集（即bootstrap取样），并用未抽到的用例（样本）作预测，评估其误差。<br>对于每一个节点，随机选择m个特征，决策树上每个节点的决定都是基于这些特征确定的。根据这m个特征，计算其最佳的分裂方式。<br>每棵树都会完整成长而不会剪枝（Pruning，这有可能在建完一棵正常树状分类器后会被采用）。</p>
 <p>随机森林的优点有：<br>对于很多种资料，它可以产生高准确度的分类器。<br>它可以处理大量的输入变数。<br>它可以在决定类别时，评估变数的重要性。<br>在建造森林时，它可以在内部对于一般化后的误差产生不偏差的估计。<br>它包含一个好方法可以估计遗失的资料，并且，如果有很大一部分的资料遗失，仍可以维持准确度。<br>它提供一个实验方法，可以去侦测variable interactions。<br>对于不平衡的分类资料集来说，它可以平衡误差。<br>它计算各例中的亲近度，对于数据挖掘、侦测离群点（outlier）和将资料视觉化非常有用。<br>使用上述。它可被延伸应用在未标记的资料上，这类资料通常是使用非监督式聚类。也可侦测偏离者和观看资料。<br>学习过程是很快速的。</p>
 </blockquote>
 
@@ -1037,7 +1038,7 @@
         
           
             <h1 id="AbaBoost"><a href="#AbaBoost" class="headerlink" title="AbaBoost"></a>AbaBoost</h1><blockquote>
-<p>AdaBoost，是英文”Adaptive Boosting”（自适应增强）的缩写，是一种机器学习方法，由Yoav Freund和Robert Schapire提出。[1]AdaBoost方法的自适应在于：前一个分类器分错的样本会被用来训练下一个分类器。AdaBoost方法对于噪声数据和异常数据很敏感。但在一些问题中，AdaBoost方法相对于大多数其它学习算法而言，不会很容易出现过拟合现象。AdaBoost方法中使用的分类器可能很弱（比如出现很大错误率），但只要它的分类效果比随机好一点（比如两类问题分类错误率略小于0.5），就能够改善最终得到的模型。而错误率高于随机分类器的弱分类器也是有用的，因为在最终得到的多个分类器的线性组合中，可以给它们赋予负系数，同样也能提升分类效果。<br>AdaBoost方法是一种迭代算法，在每一轮中加入一个新的弱分类器，直到达到某个预定的足够小的错误率。每一个训练样本都被赋予一个权重，表明它被某个分类器选入训练集的概率。如果某个样本点已经被准确地分类，那么在构造下一个训练集中，它被选中的概率就被降低；相反，如果某个样本点没有被准确地分类，那么它的权重就得到提高。通过这样的方式，AdaBoost方法能“聚焦于”那些较难分（更富信息）的样本上。在具体实现上，最初令每个样本的权重都相等，对于第k次迭代操作，我们就根据这些权重来选取样本点，进而训练分类器Ck。然后就根据这个分类器，来提高被它分错的的样本的权重，并降低被正确分类的样本权重。然后，权重更新过的样本集被用于训练下一个分类器Ck[2]。整个训练过程如此迭代地进行下去。</p>
+<p>AdaBoost，是英文”Adaptive Boosting”（自适应增强）的缩写，是一种机器学习方法，由Yoav Freund和Robert Schapire提出。[1]AdaBoost方法的自适应在于：前一个分类器分错的样本会被用来训练下一个分类器。AdaBoost方法对于噪声数据和异常数据很敏感。但在一些问题中，AdaBoost方法相对于大多数其它学习算法而言，不会很容易出现过拟合现象。AdaBoost方法中使用的分类器可能很弱（比如出现很大错误率），但只要它的分类效果比随机好一点（比如两类问题分类错误率略小于0.5），就能够改善最终得到的模型。而错误率高于随机分类器的弱分类器也是有用的，因为在最终得到的多个分类器的线性组合中，可以给它们赋予负系数，同样也能提升分类效果。<br>{!–more–}<br>AdaBoost方法是一种迭代算法，在每一轮中加入一个新的弱分类器，直到达到某个预定的足够小的错误率。每一个训练样本都被赋予一个权重，表明它被某个分类器选入训练集的概率。如果某个样本点已经被准确地分类，那么在构造下一个训练集中，它被选中的概率就被降低；相反，如果某个样本点没有被准确地分类，那么它的权重就得到提高。通过这样的方式，AdaBoost方法能“聚焦于”那些较难分（更富信息）的样本上。在具体实现上，最初令每个样本的权重都相等，对于第k次迭代操作，我们就根据这些权重来选取样本点，进而训练分类器Ck。然后就根据这个分类器，来提高被它分错的的样本的权重，并降低被正确分类的样本权重。然后，权重更新过的样本集被用于训练下一个分类器Ck[2]。整个训练过程如此迭代地进行下去。</p>
 <p>An AdaBoost [1] classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases.</p>
 </blockquote>
 <p><strong>训练速度5s+，预测速度0.027s</strong></p>
@@ -1153,8 +1154,7 @@
         
           
             <h1 id="K-Nearest-Neighbors"><a href="#K-Nearest-Neighbors" class="headerlink" title="K Nearest Neighbors"></a>K Nearest Neighbors</h1><blockquote>
-<p>Despite its simplicity, nearest neighbors has been successful in a large number of classification and regression problems, including handwritten digits or satellite image scenes. Being a non-parametric method, it is often successful in classification situations where the decision boundary is very irregular. </p>
-<p>The principle behind nearest neighbor methods is to find a predefined number of training samples closest in distance to the new point, and predict the label from these. The number of samples can be a user-defined constant (k-nearest neighbor learning), or vary based on the local density of points (radius-based neighbor learning). The distance can, in general, be any metric measure: standard Euclidean distance is the most common choice. Neighbors-based methods are known as non-generalizing machine learning methods, since they simply “remember” all of its training data (possibly transformed into a fast indexing structure such as a Ball Tree or KD Tree.).</p>
+<p>Despite its simplicity, nearest neighbors has been successful in a large number of classification and regression problems, including handwritten digits or satellite image scenes. Being a non-parametric method, it is often successful in classification situations where the decision boundary is very irregular.<br>{!–more–}<br>The principle behind nearest neighbor methods is to find a predefined number of training samples closest in distance to the new point, and predict the label from these. The number of samples can be a user-defined constant (k-nearest neighbor learning), or vary based on the local density of points (radius-based neighbor learning). The distance can, in general, be any metric measure: standard Euclidean distance is the most common choice. Neighbors-based methods are known as non-generalizing machine learning methods, since they simply “remember” all of its training data (possibly transformed into a fast indexing structure such as a Ball Tree or KD Tree.).</p>
 <p>scikit-learn implements two different nearest neighbors classifiers: KNeighborsClassifier implements learning based on the k nearest neighbors of each query point, where k is an integer value specified by the user. RadiusNeighborsClassifier implements learning based on the number of neighbors within a fixed radius r of each training point, where r is a floating-point value specified by the user.</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">from sklearn.neighbors import KNeighborsClassifier</div><div class="line">neigh = KNeighborsClassifier(n_neighbors=3)</div><div class="line">neigh.fit(X, y)</div></pre></td></tr></table></figure>
@@ -1271,9 +1271,9 @@
         
           
             <h3 id="Anaconda-navigator-闪退"><a href="#Anaconda-navigator-闪退" class="headerlink" title="Anaconda-navigator 闪退"></a>Anaconda-navigator 闪退</h3><blockquote>
-<p>原因，我安装玩anaconda后并没有直接打开anaconda-navigator，而是先打开了jupyter notebook 玩了一会，然后我的<code>C:\User\用户名\</code>下就产生了一个<code>.jupyter</code>文件夹，然后造成了冲突。我在网上查找了下发现有些人也遇到了这个问题，他们的问题是和以前安装的anaconda所产生的文件冲突造成的，我是卸载了anaconda重新安装的，安装的时候删除了用户目录下所用的和anaconda有关的文件夹，然后就可以正常的启动了。上述的文件冲突，是我的猜想，我是重新安装成功后才想起可能是这个原因的，并没有测试过，但是我想结合网上其他人的问题，我的猜测应该是正确的。</p>
-</blockquote>
-<h3 id="Anaconda-更换源"><a href="#Anaconda-更换源" class="headerlink" title="Anaconda 更换源"></a>Anaconda 更换源</h3><p>有关Anaconda更换源，我在网上查了下了，发现有2个版本，一个是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</div><div class="line">conda config --set show_channel_urls yes</div></pre></td></tr></table></figure></p>
+<p>原因，我安装玩anaconda后并没有直接打开anaconda-navigator，而是先打开了jupyter notebook 玩了一会，然后我的<code>C:\User\用户名\</code>下就产生了一个<code>.jupyter</code>文件夹，然后造成了冲突。我在网上查找了下发现有些人也遇到了这个问题，他们的问题是和以前安装的anaconda所产生的文件冲突造成的，我是卸载了anaconda重新安装的，安装的时候删除了用户目录下所用的和anaconda有关的文件夹，然后就可以正常的启动了。上述的文件冲突，是我的猜想，我是重新安装成功后才想起可能是这个原因的，并没有测试过，但是我想结合网上其他人的问题，我的猜测应该是正确的。<br>{!–more–}</p>
+<h3 id="Anaconda-更换源"><a href="#Anaconda-更换源" class="headerlink" title="Anaconda 更换源"></a>Anaconda 更换源</h3></blockquote>
+<p>有关Anaconda更换源，我在网上查了下了，发现有2个版本，一个是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</div><div class="line">conda config --set show_channel_urls yes</div></pre></td></tr></table></figure></p>
 <p>还有一种是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conda config --add channels &apos;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/&apos;</div><div class="line">conda config --set show_channel_urls yes</div></pre></td></tr></table></figure></p>
 <p>一个在url上有引号，一个没有，我也不太清楚那个对，但是查找资料发现使用该命令会在用户的文件夹下生成一个<code>.condarc</code>文件夹，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">channels:</div><div class="line">  - &quot;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/&quot;</div><div class="line">  - defaults</div><div class="line">show_channel_urls: true</div></pre></td></tr></table></figure></p>
 <p>网上提到这个是要加双引号的。我就在直接在这里加了双引号。后来我发现可以在anaconda-navigator下的environment页面中有个channls选项可以直接可视化的编辑channls选项。</p>
@@ -1389,7 +1389,7 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br>{!–more–}</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
