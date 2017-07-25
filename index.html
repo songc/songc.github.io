@@ -253,6 +253,136 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/Hexo中渲染MathJax数学公式的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/25/Hexo中渲染MathJax数学公式的问题/" itemprop="url">Hexo中渲染MathJax数学公式的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T21:05:31+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="hexo-中渲染-mathjax-数学公式的问题">Hexo 中渲染 MathJax 数学公式的问题</h3>
+<p>最近，在使用Hexo写博客的过程中，发现Hexo中的markdown文件中的数学公式无法正常的渲染。问题折腾了好久，在网上查找了不少的资料，最后使用<code>hexo-renderer-pandoc</code>这个插件解决了该问题。</p>
+<p>结果过程如下:</p>
+<ol style="list-style-type: decimal">
+<li>首先电脑上要先安装pandoc该软件，安装过程比较简单，根据提示安装就行。</li>
+<li>然后在博客的根目录下打开终端 输入命令<code>npm install hexo-renderer-pandoc --save</code> 安装该插件。</li>
+<li>然后卸载掉hexo的其他markdown的渲染引擎<code>npm uninstall hexo-renderer-marked</code> hexo 默认是使用marked 该渲染引擎。如果有其他的渲染引擎也要一起卸载掉(渲染引擎是 根目录下package.json 中dependencies 下的以<code>hexo-renderer-**</code>开头的依赖库)。(我在只卸载了默认的marked渲染引擎后，发现还是渲染失败，然后我尝试将package.json中<code>hexo-renderer-pandoc</code>移动到了渲染引擎的第一个，然后发现可以成功的渲染MathJax数学公式。个人猜测 hexo是按照package.json中渲染引擎的顺序逐个依次进行渲染的。所以也可以不卸载hexo的其他渲染引擎，在安装<code>pandoc</code>插件后，修改package.json中的渲染引擎的顺序，将<code>pandoc</code>引擎放到第一位就可以了)</li>
+</ol>
+<h3 id="其他的一些解决方案">其他的一些解决方案:</h3>
+<p>网上还有一些其他的解决方案:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>hexo-math</code> 插件，但是我安装该插件后不能完美的解决问题，有些公式无法正常解析。</p></li>
+<li><p><code>hexo-renderer-mathjax</code>,这个插件我也尝试过，但是也有问题。</p></li>
+<li><p>Next主题是自带Mathjax的功能，默认是关闭的可以在Next主题的配置文件下打开就可以，设置<code>_config.yml</code></p></li>
+</ol>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mathjax:</div><div class="line">	enable: ture</div></pre></td></tr></table></figure></p>
+<p>但是自带的解析功能不好用，存在问题。</p>
+<h3 id="markdown无法解析的原因">Markdown无法解析的原因：</h3>
+<p>markdown中数学公式无法正常显示，是渲染引擎的原因。具体的原因可以看着两片文章解释的比较清楚<a href="http://shomy.top/2016/10/22/hexo-markdown-mathjax/" target="_blank" rel="external">Hexo下mathjax的转义问题</a>,<a href="http://www.huangzeqiang.tech/2017/05/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E5%92%8CMarkdown%E7%9A%84%E7%BB%93%E5%90%88/" target="_blank" rel="external">数学公式和Markdown的结合</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/Gradient-Descent/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1307,126 +1437,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/Support-Vector-Machine/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songc's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/26/Support-Vector-Machine/" itemprop="url">Support Vector Machine</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T21:38:57+08:00">
-                2017-06-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="support-vertor-machine">Support Vertor Machine</h1>
-<blockquote>
-<ol style="list-style-type: decimal">
-<li><p>支持向量机（Support Vector Machine，常简称为SVM）是一种监督式学习的方法，可广泛地应用于统计分类以及回归分析。支持向量机属于一般化线性分类器，这族分类器的特点是他们能够同时最小化经验误差与最大化几何边缘区，因此支持向量机也被称为最大边缘区分类器。</p></li>
-<li><p>支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间隔超平面。在分开数据的超平面的两边建有两个互相平行的超平面，分隔超平面使两个平行超平面的距离最大化。假定平行超平面间的距离或差距越大，分类器的总误差越小。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/26/Support-Vector-Machine/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1476,7 +1486,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1489,7 +1499,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
