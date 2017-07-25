@@ -93,19 +93,21 @@
 
 
 
-<meta name="description" content="Cost FunctionWe can measure the accuracy of our hypothesis function by using a cost function. This takes an average difference (actually a fancier version of an average) of all the results of the hypo">
+<meta name="description" content="Cost Function - Intuition IIf we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make a straight line (defined by $h_\theta(x)$) which passes">
 <meta name="keywords" content="Machine Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cost Function">
-<meta property="og:url" content="http://yoursite.com/2017/07/25/Cost-Function/index.html">
+<meta property="og:title" content="Cost Function-Intuition I">
+<meta property="og:url" content="http://yoursite.com/2017/07/25/Cost-Function-Intuition-I/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
-<meta property="og:description" content="Cost FunctionWe can measure the accuracy of our hypothesis function by using a cost function. This takes an average difference (actually a fancier version of an average) of all the results of the hypo">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/image1.png">
-<meta property="og:updated_time" content="2017-07-25T02:16:49.938Z">
+<meta property="og:description" content="Cost Function - Intuition IIf we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make a straight line (defined by $h_\theta(x)$) which passes">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/_B8TJZtREea33w76dwnDIg_3e3d4433e32478f8df446d0b6da26c27_Screenshot-2016-10-26-00.57.56.png?expiry=1501113600000&hmac=Qz9VygqjT0OSx0zFd_iUgbtU_bhMZJUJGUUX-LUMqt4">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/8guexptSEeanbxIMvDC87g_3d86874dfd37b8e3c53c9f6cfa94676c_Screenshot-2016-10-26-01.03.07.png?expiry=1501113600000&hmac=IaKXPGrG6zCoGlkW4PIneLrFRr5dRpN9qd52EB7Plgk">
+<meta property="og:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/fph0S5tTEeajtg5TyD0vYA_9b28bdfeb34b2d4914d0b64903735cf1_Screenshot-2016-10-26-01.09.05.png?expiry=1501113600000&hmac=FzP6R81fEEbtgaqqF5hN8sAf9K0QhhSxQcSMH037V0U">
+<meta property="og:updated_time" content="2017-07-25T02:20:35.157Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cost Function">
-<meta name="twitter:description" content="Cost FunctionWe can measure the accuracy of our hypothesis function by using a cost function. This takes an average difference (actually a fancier version of an average) of all the results of the hypo">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/25/Cost-Function/image1.png">
+<meta name="twitter:title" content="Cost Function-Intuition I">
+<meta name="twitter:description" content="Cost Function - Intuition IIf we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make a straight line (defined by $h_\theta(x)$) which passes">
+<meta name="twitter:image" content="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/_B8TJZtREea33w76dwnDIg_3e3d4433e32478f8df446d0b6da26c27_Screenshot-2016-10-26-00.57.56.png?expiry=1501113600000&hmac=Qz9VygqjT0OSx0zFd_iUgbtU_bhMZJUJGUUX-LUMqt4">
 
 
 
@@ -133,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/25/Cost-Function/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/25/Cost-Function-Intuition-I/"/>
 
 
 
 
 
-  <title>Cost Function | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Cost Function-Intuition I | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -258,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/Cost-Function/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/Cost-Function-Intuition-I/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Chao">
@@ -275,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Cost Function</h1>
+          <h1 class="post-title" itemprop="name headline">Cost Function-Intuition I</h1>
         
 
         <div class="post-meta">
@@ -287,7 +289,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T10:04:50+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T10:18:50+08:00">
                 2017-07-25
               </time>
             
@@ -322,11 +324,14 @@
       
 
       
-        <h1 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h1><p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x’s and the actual output y’s.<br><a id="more"></a><br>$$<br>J(\theta_0, \theta<em>1) = \dfrac {1}{2m} \displaystyle \sum </em>{i=1}^m \left ( \hat{y}<em>{i}- y</em>{i} \right)^2 = \dfrac {1}{2m} \displaystyle \sum <em>{i=1}^m \left (h</em>\theta (x<em>{i}) - y</em>{i} \right)^2<br>$$</p>
-<p>To break it apart, it is $\frac{1}{2} \bar{x}$where $\bar{x}$is the mean of the squares of  $h<em>\theta (x</em>{i}) - y_{i}$, or the difference between the predicted value and the actual value.</p>
-<p>This function is otherwise called the “Squared error function”, or “Mean squared error”. The mean is halved $\left(\frac{1}{2}\right)$as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the $\frac{1}{2}$ term. The following image summarizes what the cost function does:<br><img src="/2017/07/25/Cost-Function/image1.png" alt="image1.png" title=""></p>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+        <h1 id="Cost-Function-Intuition-I"><a href="#Cost-Function-Intuition-I" class="headerlink" title="Cost Function - Intuition I"></a>Cost Function - Intuition I</h1><p>If we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make a straight line (defined by $h_\theta(x)$) which passes through these scattered data points.<br><a id="more"></a><br>Our objective is to get the best possible line. The best possible line will be such so that the average squared vertical distances of $J(\theta_0, \theta_1)$the scattered points from the line will be the least. Ideally, the line should pass through all the points of our training data set. In such a case, the value of  will be 0. The following example shows the ideal situation where we have a cost function of 0.</p>
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/_B8TJZtREea33w76dwnDIg_3e3d4433e32478f8df446d0b6da26c27_Screenshot-2016-10-26-00.57.56.png?expiry=1501113600000&amp;hmac=Qz9VygqjT0OSx0zFd_iUgbtU_bhMZJUJGUUX-LUMqt4" alt="img"></p>
+<p>When $\theta_1 = 1,$ we get a slope of 1 which goes through every single data point in our model. Conversely, when $\theta_1 = 0.5$, we see the vertical distance from our fit to the data points increase.</p>
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/8guexptSEeanbxIMvDC87g_3d86874dfd37b8e3c53c9f6cfa94676c_Screenshot-2016-10-26-01.03.07.png?expiry=1501113600000&amp;hmac=IaKXPGrG6zCoGlkW4PIneLrFRr5dRpN9qd52EB7Plgk" alt="img"></p>
+<p>This increases our cost function to 0.58. Plotting several other points yields to the following graph:</p>
+<p><img src="https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/fph0S5tTEeajtg5TyD0vYA_9b28bdfeb34b2d4914d0b64903735cf1_Screenshot-2016-10-26-01.09.05.png?expiry=1501113600000&amp;hmac=FzP6R81fEEbtgaqqF5hN8sAf9K0QhhSxQcSMH037V0U" alt="img"></p>
+<p>Thus as a goal, we should try to minimize the cost function. In this case,  $\theta_1 = 1​$is our global minimum.</p>
+
       
     </div>
 
@@ -368,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/24/Model-Representation/" rel="next" title="Model Representation">
-                <i class="fa fa-chevron-left"></i> Model Representation
+              <a href="/2017/07/25/Cost-Function/" rel="next" title="Cost Function">
+                <i class="fa fa-chevron-left"></i> Cost Function
               </a>
             
           </div>
@@ -377,10 +382,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/25/Cost-Function-Intuition-I/" rel="prev" title="Cost Function-Intuition I">
-                Cost Function-Intuition I <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -520,7 +521,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cost-Function"><span class="nav-number">1.</span> <span class="nav-text">Cost Function</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cost-Function-Intuition-I"><span class="nav-number">1.</span> <span class="nav-text">Cost Function - Intuition I</span></a></li></ol></div>
             
 
           </div>
