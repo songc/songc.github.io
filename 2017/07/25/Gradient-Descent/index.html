@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/07/25/Gradient-Descent/gradient5.png">
 <meta property="og:image" content="http://yoursite.com/2017/07/25/Gradient-Descent/gradient6.png">
 <meta property="og:image" content="http://yoursite.com/2017/07/25/Gradient-Descent/gradient7.png">
-<meta property="og:updated_time" content="2017-07-25T12:26:18.299Z">
+<meta property="og:updated_time" content="2017-07-25T12:29:52.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradient Descent">
 <meta name="twitter:description" content="Gradient Descent So we have our hypothesis function and we have a way of measuring how well it fits into the data. Now we need to estimate the parameters in the hypothesis function. That’s where grad">
@@ -329,8 +329,7 @@
 
       
         <h1 id="gradient-descent">Gradient Descent</h1>
-<p>So we have our hypothesis function and we have a way of measuring how well it fits into the data. Now we need to estimate the parameters in the hypothesis function. That’s where gradient descent comes in.</p>
-<p>Imagine that we graph our hypothesis function based on its fields <span class="math inline">\(\theta_0\)</span> and <span class="math inline">\(\theta_1\)</span>  (actually we are graphing the cost function as a function of the parameter estimates). We are not graphing x and y itself, but the parameter range of our hypothesis function and the cost resulting from selecting a particular set of parameters.</p>
+<p>So we have our hypothesis function and we have a way of measuring how well it fits into the data. Now we need to estimate the parameters in the hypothesis function. That’s where gradient descent comes in. <a id="more"></a> Imagine that we graph our hypothesis function based on its fields <span class="math inline">\(\theta_0\)</span> and <span class="math inline">\(\theta_1\)</span>  (actually we are graphing the cost function as a function of the parameter estimates). We are not graphing x and y itself, but the parameter range of our hypothesis function and the cost resulting from selecting a particular set of parameters.</p>
 <p>We put <span class="math inline">\(\theta_0\)</span> on the x axis and <span class="math inline">\(\theta_1\)</span> on the y axis, with the cost function on the vertical z axis. The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters. The graph below depicts such a setup.</p>
 <img src="/2017/07/25/Gradient-Descent/gradient1.png" alt="gradient1.png" title="">
 <p>We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph, i.e. when its value is the minimum. The red arrows show the minimum points in the graph.</p>
