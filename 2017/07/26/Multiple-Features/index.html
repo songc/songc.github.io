@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="Supervised Learning In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the">
+<meta name="description" content="Multiple Features Linear regression with multiple variables is also known as “multivariate linear regression”.">
 <meta name="keywords" content="Machine Learning,Andrew Ng">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Supervised Learning">
-<meta property="og:url" content="http://yoursite.com/2017/07/21/Supervised-Learning/index.html">
+<meta property="og:title" content="Multiple Features">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/Multiple-Features/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
-<meta property="og:description" content="Supervised Learning In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the">
-<meta property="og:updated_time" content="2017-07-26T12:40:45.603Z">
+<meta property="og:description" content="Multiple Features Linear regression with multiple variables is also known as “multivariate linear regression”.">
+<meta property="og:updated_time" content="2017-07-26T12:36:10.442Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Supervised Learning">
-<meta name="twitter:description" content="Supervised Learning In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the">
+<meta name="twitter:title" content="Multiple Features">
+<meta name="twitter:description" content="Multiple Features Linear regression with multiple variables is also known as “multivariate linear regression”.">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/21/Supervised-Learning/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/26/Multiple-Features/"/>
 
 
 
 
 
-  <title>Supervised Learning | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Multiple Features | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/21/Supervised-Learning/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Multiple-Features/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Chao">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Supervised Learning</h1>
+          <h1 class="post-title" itemprop="name headline">Multiple Features</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T10:34:37+08:00">
-                2017-07-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T20:31:29+08:00">
+                2017-07-26
               </time>
             
 
@@ -320,22 +320,16 @@
       
 
       
-        <blockquote>
-<h2 id="supervised-learning">Supervised Learning</h2>
-<p>In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the output.</p>
-<p>Supervised learning problems are categorized into “regression” and “classification” problems. In a regression problem, we are trying to predict results within a continuous output, meaning that we are trying to map input variables to some continuous function. In a classification problem, we are instead trying to predict results in a discrete output. In other words, we are trying to map input variables into discrete categories.</p>
-</blockquote>
-<a id="more"></a>
-<blockquote>
-<p><strong>Example 1:</strong></p>
-<p>Given data about the size of houses on the real estate market, try to predict their price. Price as a function of size is a continuous output, so this is a regression problem.</p>
-<p>We could turn this example into a classification problem by instead making our output about whether the house “sells for more or less than the asking price.” Here we are classifying the houses based on price into two discrete categories.</p>
-<p><strong>Example 2</strong>:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Regression - Given a picture of a person, we have to predict their age on the basis of the given picture</p></li>
-<li><p>Classification - Given a patient with a tumor, we have to predict whether the tumor is malignant or benign.</p></li>
-</ol>
-</blockquote>
+        <h1 id="multiple-features">Multiple Features</h1>
+<p>Linear regression with multiple variables is also known as “multivariate linear regression”. <a id="more"></a> We now introduce notation for equations where we can have any number of input variables. <span class="math display">\[
+\begin{align*}x_j^{(i)} &amp;= \text{value of feature } j \text{ in the }i^{th}\text{ training example} \newline x^{(i)}&amp; = \text{the input (features) of the }i^{th}\text{ training example} \newline m &amp;= \text{the number of training examples} \newline n &amp;= \text{the number of features} \end{align*}
+\]</span> The multivariable form of the hypothesis function accommodating these multiple features is as follows: <span class="math display">\[
+h_\theta (x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \cdots + \theta_n x_n
+\]</span> In order to develop intuition about this function, we can think about <span class="math inline">\(\theta_0\)</span> as the basic price of a house, <span class="math inline">\(\theta_1\)</span> as the price per square meter, <span class="math inline">\(\theta_2\)</span> as the price per floor, etc. <span class="math inline">\(x_1\)</span> will be the number of square meters in the house, <span class="math inline">\(x_2\)</span> the number of floors, etc.</p>
+<p>Using the definition of matrix multiplication, our multivariable hypothesis function can be concisely represented as: <span class="math display">\[
+\begin{align*}h_\theta(x) =\begin{bmatrix}\theta_0 \hspace{2em} \theta_1 \hspace{2em} ... \hspace{2em} \theta_n\end{bmatrix}\begin{bmatrix}x_0 \newline x_1 \newline \vdots \newline x_n\end{bmatrix}= \theta^T x\end{align*}
+\]</span> This is a vectorization of our hypothesis function for one training example; see the lessons on vectorization to learn more.</p>
+<p>Remark: Note that for convenience reasons in this course we assume <span class="math inline">\(x_{0}^{(i)} =1 \text{ for } (i\in { 1,\dots, m } )\)</span>. This allows us to do matrix operations with theta and x. Hence making the two vectors ‘<span class="math inline">\(\theta\)</span>’ and <span class="math inline">\(x^{(i)}\)</span> match each other element-wise (that is, have the same number of elements: n+1).</p>
 
       
     </div>
@@ -380,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/20/What-is-Machine-Learning/" rel="next" title="What is Machine Learning?">
-                <i class="fa fa-chevron-left"></i> What is Machine Learning?
+              <a href="/2017/07/25/Hexo中渲染MathJax数学公式的问题/" rel="next" title="Hexo中渲染MathJax数学公式的问题">
+                <i class="fa fa-chevron-left"></i> Hexo中渲染MathJax数学公式的问题
               </a>
             
           </div>
@@ -389,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/21/Unsupervised-Learning/" rel="prev" title="Unsupervised Learning">
-                Unsupervised Learning <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,7 +522,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#supervised-learning"><span class="nav-number">1.</span> <span class="nav-text">Supervised Learning</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#multiple-features"><span class="nav-number">1.</span> <span class="nav-text">Multiple Features</span></a></li></ol></div>
             
 
           </div>
