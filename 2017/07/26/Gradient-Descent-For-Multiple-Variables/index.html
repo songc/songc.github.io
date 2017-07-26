@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Machine Learning,Andrew Ng," />
 
 
 
@@ -93,17 +93,20 @@
 
 
 
-<meta name="description" content="AbaBoost  AdaBoost，是英文“Adaptive Boosting”（自适应增强）的缩写，是一种机器学习方法，由Yoav Freund和Robert Schapire提出。[1]AdaBoost方法的自适应在于：前一个分类器分错的样本会被用来训练下一个分类器。AdaBoost方法对于噪声数据和异常数据很敏感。但在一些问题中，AdaBoost方法相对于大多数其它学习算法而言，不会很">
-<meta name="keywords" content="Machine Learning">
+<meta name="description" content="Gradient Descent For Multiple Variables The gradient descent equation itself is generally the same form; we just have to repeat it for our ‘n’ features: \[ \begin{align*} &amp;amp; \text{repeat until co">
+<meta name="keywords" content="Machine Learning,Andrew Ng">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AdaBoost">
-<meta property="og:url" content="http://yoursite.com/2017/06/25/AdaBoost/index.html">
+<meta property="og:title" content="Gradient Descent For Multiple Variables">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/Gradient-Descent-For-Multiple-Variables/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
-<meta property="og:description" content="AbaBoost  AdaBoost，是英文“Adaptive Boosting”（自适应增强）的缩写，是一种机器学习方法，由Yoav Freund和Robert Schapire提出。[1]AdaBoost方法的自适应在于：前一个分类器分错的样本会被用来训练下一个分类器。AdaBoost方法对于噪声数据和异常数据很敏感。但在一些问题中，AdaBoost方法相对于大多数其它学习算法而言，不会很">
-<meta property="og:updated_time" content="2017-07-08T09:08:53.210Z">
+<meta property="og:description" content="Gradient Descent For Multiple Variables The gradient descent equation itself is generally the same form; we just have to repeat it for our ‘n’ features: \[ \begin{align*} &amp;amp; \text{repeat until co">
+<meta property="og:image" content="http://yoursite.com/2017/07/26/Gradient-Descent-For-Multiple-Variables/learn_rate1.png">
+<meta property="og:image" content="http://yoursite.com/2017/07/26/Gradient-Descent-For-Multiple-Variables/learn_rate2.png">
+<meta property="og:updated_time" content="2017-07-26T12:56:16.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AdaBoost">
-<meta name="twitter:description" content="AbaBoost  AdaBoost，是英文“Adaptive Boosting”（自适应增强）的缩写，是一种机器学习方法，由Yoav Freund和Robert Schapire提出。[1]AdaBoost方法的自适应在于：前一个分类器分错的样本会被用来训练下一个分类器。AdaBoost方法对于噪声数据和异常数据很敏感。但在一些问题中，AdaBoost方法相对于大多数其它学习算法而言，不会很">
+<meta name="twitter:title" content="Gradient Descent For Multiple Variables">
+<meta name="twitter:description" content="Gradient Descent For Multiple Variables The gradient descent equation itself is generally the same form; we just have to repeat it for our ‘n’ features: \[ \begin{align*} &amp;amp; \text{repeat until co">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/26/Gradient-Descent-For-Multiple-Variables/learn_rate1.png">
 
 
 
@@ -131,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/25/AdaBoost/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/26/Gradient-Descent-For-Multiple-Variables/"/>
 
 
 
 
 
-  <title>AdaBoost | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Gradient Descent For Multiple Variables | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -256,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/25/AdaBoost/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Gradient-Descent-For-Multiple-Variables/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Chao">
@@ -273,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AdaBoost</h1>
+          <h1 class="post-title" itemprop="name headline">Gradient Descent For Multiple Variables</h1>
         
 
         <div class="post-meta">
@@ -285,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T20:57:33+08:00">
-                2017-06-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T20:48:59+08:00">
+                2017-07-26
               </time>
             
 
@@ -320,14 +323,36 @@
       
 
       
-        <h1 id="ababoost">AbaBoost</h1>
-<blockquote>
-<p>AdaBoost，是英文“Adaptive Boosting”（自适应增强）的缩写，是一种机器学习方法，由Yoav Freund和Robert Schapire提出。[1]AdaBoost方法的自适应在于：前一个分类器分错的样本会被用来训练下一个分类器。AdaBoost方法对于噪声数据和异常数据很敏感。但在一些问题中，AdaBoost方法相对于大多数其它学习算法而言，不会很容易出现过拟合现象。AdaBoost方法中使用的分类器可能很弱（比如出现很大错误率），但只要它的分类效果比随机好一点（比如两类问题分类错误率略小于0.5），就能够改善最终得到的模型。而错误率高于随机分类器的弱分类器也是有用的，因为在最终得到的多个分类器的线性组合中，可以给它们赋予负系数，同样也能提升分类效果。 <a id="more"></a> AdaBoost方法是一种迭代算法，在每一轮中加入一个新的弱分类器，直到达到某个预定的足够小的错误率。每一个训练样本都被赋予一个权重，表明它被某个分类器选入训练集的概率。如果某个样本点已经被准确地分类，那么在构造下一个训练集中，它被选中的概率就被降低；相反，如果某个样本点没有被准确地分类，那么它的权重就得到提高。通过这样的方式，AdaBoost方法能“聚焦于”那些较难分（更富信息）的样本上。在具体实现上，最初令每个样本的权重都相等，对于第k次迭代操作，我们就根据这些权重来选取样本点，进而训练分类器Ck。然后就根据这个分类器，来提高被它分错的的样本的权重，并降低被正确分类的样本权重。然后，权重更新过的样本集被用于训练下一个分类器Ck[2]。整个训练过程如此迭代地进行下去。</p>
-</blockquote>
-<blockquote>
-<p>An AdaBoost [1] classifier is a meta-estimator that begins by fitting a classifier on the original dataset and then fits additional copies of the classifier on the same dataset but where the weights of incorrectly classified instances are adjusted such that subsequent classifiers focus more on difficult cases.</p>
-</blockquote>
-<p><strong>训练速度5s+，预测速度0.027s</strong></p>
+        <h1 id="gradient-descent-for-multiple-variables">Gradient Descent For Multiple Variables</h1>
+<p>The gradient descent equation itself is generally the same form; we just have to repeat it for our ‘n’ features: <span class="math display">\[
+\begin{align*} &amp; \text{repeat until convergence:} \; \lbrace \newline \; &amp; \theta_0 := \theta_0 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_0^{(i)}\newline \; &amp; \theta_1 := \theta_1 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_1^{(i)} \newline \; &amp; \theta_2 := \theta_2 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_2^{(i)} \newline &amp; \cdots \newline \rbrace \end{align*}
+\]</span> In other words: <a id="more"></a> The following image compares gradient descent with one variable to gradient descent with multiple variables: <span class="math display">\[
+\begin{align*}&amp; \text{repeat until convergence:} \; \lbrace \newline \; &amp; \theta_j := \theta_j - \alpha \frac{1}{m} \sum\limits_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_j^{(i)} \; &amp; \text{for j := 0...n}\newline \rbrace\end{align*}
+\]</span></p>
+
+<h1 id="gradient-descent-in-practice-i---feature-scaling">Gradient Descent in Practice I - Feature Scaling</h1>
+<p>We can speed up gradient descent by having each of our input values in roughly the same range. This is because θ will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven.</p>
+<p>The way to prevent this is to modify the ranges of our input variables so that they are all roughly the same. Ideally:</p>
+<p>−1 ≤ <span class="math inline">\(x_{(i)}\)</span> ≤ 1</p>
+<p>or</p>
+<p>−0.5 ≤ <span class="math inline">\(x_{(i)}\)</span> ≤ 0.5</p>
+<p>These aren’t exact requirements; we are only trying to speed things up. The goal is to get all input variables into roughly one of these ranges, give or take a few.</p>
+<p>Two techniques to help with this are <strong>feature scaling</strong> and <strong>mean normalization</strong>. Feature scaling involves dividing the input values by the range (i.e. the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1. Mean normalization involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero. To implement both of these techniques, adjust your input values as shown in this formula: <span class="math display">\[
+x_i := \dfrac{x_i - \mu_i}{s_i}
+\]</span> Where <span class="math inline">\(μ_i\)</span> is the <strong>average</strong> of all the values for feature (i) and <span class="math inline">\(s_i\)</span> is the range of values (max - min), or <span class="math inline">\(s_i\)</span> is the standard deviation.</p>
+<p>Note that dividing by the range, or dividing by the standard deviation, give different results. The quizzes in this course use range - the programming exercises use standard deviation.</p>
+<p>For example, if <span class="math inline">\(x_i\)</span> represents housing prices with a range of 100 to 2000 and a mean value of 1000, then, <span class="math display">\[
+x_i := \dfrac{price-1000}{1900}
+\]</span></p>
+<h1 id="gradient-descent-in-practice-ii---learning-rate">Gradient Descent in Practice II - Learning Rate</h1>
+<p><strong>Debugging gradient descent.</strong> Make a plot with <em>number of iterations</em> on the x-axis. Now plot the cost function, J(θ) over the number of iterations of gradient descent. If J(θ) ever increases, then you probably need to decrease α.</p>
+<p><strong>Automatic convergence test.</strong> Declare convergence if J(θ) decreases by less than E in one iteration, where E is some small value such as <span class="math inline">\(10^{-3}\)</span>. However in practice it’s difficult to choose this threshold value.</p>
+<img src="/2017/07/26/Gradient-Descent-For-Multiple-Variables/learn_rate1.png" alt="learn_rate1.png" title="">
+<p>It has been proven that if learning rate α is sufficiently small, then J(θ) will decrease on every iteration.</p>
+<img src="/2017/07/26/Gradient-Descent-For-Multiple-Variables/learn_rate2.png" alt="learn_rate2.png" title="">
+<p>To summarize:</p>
+<p>If <span class="math inline">\(\alpha\)</span> is too small: slow convergence.</p>
+<p>If <span class="math inline">\(\alpha\)</span> is too large: ￼may not decrease on every iteration and thus may not converge.</p>
 
       
     </div>
@@ -359,6 +384,8 @@
           
             <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
+            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+          
         </div>
       
 
@@ -370,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/25/K-nearest-neightbors/" rel="next" title="K nearest neightbors">
-                <i class="fa fa-chevron-left"></i> K nearest neightbors
+              <a href="/2017/07/26/Multiple-Features/" rel="next" title="Multiple Features">
+                <i class="fa fa-chevron-left"></i> Multiple Features
               </a>
             
           </div>
@@ -380,8 +407,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/25/Random-Forest/" rel="prev" title="Random Forest">
-                Random Forest <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/26/Features-and-Polynomial-Regression/" rel="prev" title="Features and Polynomial Regression">
+                Features and Polynomial Regression <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -522,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ababoost"><span class="nav-number">1.</span> <span class="nav-text">AbaBoost</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gradient-descent-for-multiple-variables"><span class="nav-number">1.</span> <span class="nav-text">Gradient Descent For Multiple Variables</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gradient-descent-in-practice-i---feature-scaling"><span class="nav-number">2.</span> <span class="nav-text">Gradient Descent in Practice I - Feature Scaling</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gradient-descent-in-practice-ii---learning-rate"><span class="nav-number">3.</span> <span class="nav-text">Gradient Descent in Practice II - Learning Rate</span></a></li></ol></div>
             
 
           </div>
