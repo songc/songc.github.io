@@ -253,6 +253,441 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/Classification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/02/Classification/" itemprop="url">Classification</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T19:40:17+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="classification">Classification</h1>
+<p>To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well because classification is not actually a linear function.</p>
+<p>The classification problem is just like the regression problem, except that the values y we now want to predict take on only a small number of discrete values. For now, we will focus on the <strong>binary classification</strong> <strong>problem</strong> in which y can take on only two values, 0 and 1. (Most of what we say here will also generalize to the multiple-class case.) For instance, if we are trying to build a spam classifier for email, then <span class="math inline">\(x^{(i)}​\)</span> may be some features of a piece of email, and y may be 1 if it is a piece of spam mail, and 0 otherwise. Hence, y∈{0,1}. 0 is also called the negative class, and 1 the positive class, and they are sometimes also denoted by the symbols “-” and “+.” Given <span class="math inline">\(x^{(i)}​\)</span>, the corresponding <span class="math inline">\(y^{(i)}​\)</span> is also called the label for the training example.</p>
+<h1 id="hypothesis-representation">Hypothesis Representation</h1>
+<p>We could approach the classification problem ignoring the fact that y is discrete-valued, and use our old linear regression algorithm to try to predict y given x. However, it is easy to construct examples where this method performs very poorly. Intuitively, it also doesn’t make sense for <span class="math inline">\(h_\theta (x)\)</span> to take values larger than 1 or smaller than 0 when we know that y ∈ {0, 1}. To fix this, let’s change the form for our hypotheses <span class="math inline">\(h_\theta (x)\)</span> to satisfy <span class="math inline">\(0 \leq h_\theta (x) \leq 1\)</span>. This is accomplished by plugging <span class="math inline">\(\theta^Tx\)</span> into the Logistic Function.</p>
+<p>Our new form uses the “Sigmoid Function,” also called the “Logistic Function”: <span class="math display">\[
+\begin{align*}&amp; h_\theta (x) = g ( \theta^T x ) \newline \newline&amp; z = \theta^T x \newline&amp; g(z) = \dfrac{1}{1 + e^{-z}}\end{align*}
+\]</span> The following image shows us what the sigmoid function looks like:</p>
+<div class="figure">
+<img src="./Classification/Logistic_function.png" alt="img">
+<p class="caption">img</p>
+</div>
+<p>The function g(z), shown here, maps any real number to the (0, 1) interval, making it useful for transforming an arbitrary-valued function into a function better suited for classification.</p>
+<p><span class="math inline">\(h_\theta (x)\)</span> will give us the <strong>probability</strong> that our output is 1. For example, <span class="math inline">\(h_\theta (x) = 0.7\)</span> gives us a probability of 70% that our output is 1. Our probability that our prediction is 0 is just the complement of our probability that it is 1 (e.g. if probability that it is 1 is 70%, then the probability that it is 0 is 30%). <span class="math display">\[
+\begin{align*}&amp; h_\theta(x) = P(y=1 | x ; \theta) = 1 - P(y=0 | x ; \theta) \newline&amp; P(y = 0 | x;\theta) + P(y = 1 | x ; \theta) = 1\end{align*}
+\]</span></p>
+<h1 id="decision-boundary">Decision Boundary</h1>
+<p>In order to get our discrete 0 or 1 classification, we can translate the output of the hypothesis function as follows: <span class="math display">\[
+\begin{align*}&amp; h_\theta(x) \geq 0.5 \rightarrow y = 1 \newline&amp; h_\theta(x) &lt; 0.5 \rightarrow y = 0 \newline\end{align*}
+\]</span> The way our logistic function g behaves is that when its input is greater than or equal to zero, its output is greater than or equal to 0.5: <span class="math display">\[
+\begin{align*}&amp; g(z) \geq 0.5 \newline&amp; when \; z \geq 0\end{align*}
+\]</span> Remember. <span class="math display">\[
+\begin{align*}z=0, e^{0}=1 \Rightarrow g(z)=1/2\newline z \to \infty, e^{-\infty} \to 0 \Rightarrow g(z)=1 \newline z \to -\infty, e^{\infty}\to \infty \Rightarrow g(z)=0 \end{align*}
+\]</span> So if our input to g is <span class="math inline">\(\theta^TX\)</span>, then that means: <span class="math display">\[
+\begin{align*}&amp; h_\theta(x) = g(\theta^T x) \geq 0.5 \newline&amp; when \; \theta^T x \geq 0\end{align*}
+\]</span> From these statements we can now say: <span class="math display">\[
+\begin{align*}&amp; \theta^T x \geq 0 \Rightarrow y = 1 \newline&amp; \theta^T x &lt; 0 \Rightarrow y = 0 \newline\end{align*}
+\]</span> The <strong>decision boundary</strong> is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.</p>
+<p><strong>Example</strong>: <span class="math display">\[
+\begin{align*}&amp; \theta = \begin{bmatrix}5 \newline -1 \newline 0\end{bmatrix} \newline &amp; y = 1 \; if \; 5 + (-1) x_1 + 0 x_2 \geq 0 \newline &amp; 5 - x_1 \geq 0 \newline &amp; - x_1 \geq -5 \newline&amp; x_1 \leq 5 \newline \end{align*}
+\]</span> In this case, our decision boundary is a straight vertical line placed on the graph where <span class="math inline">\(x_1 = 5\)</span>, and everything to the left of that denotes y = 1, while everything to the right denotes y = 0.</p>
+<p>Again, the input to the sigmoid function g(z) (e.g. <span class="math inline">\(\theta^T X\)</span>) doesn’t need to be linear, and could be a function that describes a circle (e.g. <span class="math inline">\(z = \theta_0 + \theta_1 x_1^2 +\theta_2 x_2^2\)</span>) or any shape to fit our data.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/The-Phrasal-Verbs-of-Love-and-Relationship/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/02/The-Phrasal-Verbs-of-Love-and-Relationship/" itemprop="url">The Phrasal Verbs of Love and Relationship</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T19:38:26+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="the-phrasal-verbs-of-love-and-relationship">The Phrasal Verbs of Love and Relationship</h3>
+<ol style="list-style-type: decimal">
+<li>ask somebody out: to invite someone on a date.</li>
+<li>take somebody out: to take somebody on a date, usually the person who is taking the other person out is offering to pay for the date.</li>
+<li>lead somebody on: to persuade someone to believe something that is untrue.</li>
+<li>hook up with somebody: to begin a sexual relationship with someone (a hook-up is basically a meeting for sex).</li>
+<li>drift apart: if two people drift apart, they gradually become less friendly and their relationship ends.</li>
+<li>break up: if a marriage breaks up or two people in a romantic relationship break up, their marriage or their relationship ends.</li>
+<li>split up: if two people split up, they end their relationship or marriage.</li>
+<li>make up: to forgive someone and be friendly with them again after an argument or disagreement.</li>
+<li>put up with something/somebody: to accept or continue to accept an unpleasant situation or experience, or someone who behaves unpleasantly.</li>
+<li>cheat on somebody: if you cheat on your husband, wife, or usual sexual partner, you secretly have a sexual relationship with someone else.</li>
+<li>mess somebody around: to treat someone badly</li>
+<li>settle down: to start living in a place where you intend to stay for a long time, usually with your partner.</li>
+</ol>
+<ul>
+<li>She’ <strong>s</strong> <strong>asked</strong> Steve <strong>out</strong> to the cinema this evening.</li>
+<li>He <strong>took</strong> us <strong>out</strong> for a pizza.</li>
+<li>All that time she’ <strong>d been leading</strong> him <strong>on</strong> (= pretending she liked him), but she was only interested in his money.</li>
+<li>When <strong>did</strong> you two first <strong>hook up</strong> ?</li>
+<li>It’s just that sometimes two people <strong>drift apart</strong> and they have to get together again because they were cut out for each other.</li>
+<li>She’ <strong>s</strong> just <strong>broken up</strong> with her boyfriend.</li>
+<li>She <strong>split up</strong> with her boyfriend last week.</li>
+<li>They kissed and <strong>made up</strong> , as usual.</li>
+<li>I can <strong>put up</strong> with the house being messy, but I hate it if it’s not clean.</li>
+<li>She found out that he’ <strong>d been cheating on</strong> her.</li>
+<li>Don’t <strong>mess</strong> me <strong>around</strong> !</li>
+<li>Eventually I’d like to <strong>settle down</strong> and have a family, but not yet.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/Normal-Equation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/02/Normal-Equation/" itemprop="url">Normal Equation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T19:30:50+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="normal-equation">Normal Equation</h1>
+<p>Gradient descent gives one way of minimizing J. Let’s discuss a second way of doing so, this time performing the minimization explicitly and without resorting to an iterative algorithm. In the “Normal Equation” method, we will minimize J by explicitly taking its derivatives with respect to the θj ’s, and setting them to zero. This allows us to find the optimum theta without iteration. The normal equation formula is given below: <span class="math display">\[
+\theta = (X^T X)^{-1}X^T y
+\]</span> <img src="./Normal-Equation/normal-equation1.png" alt="img"></p>
+<p>There is <strong>no need</strong> to do feature scaling with the normal equation.</p>
+<p>The following is a comparison of gradient descent and the normal equation:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Gradient Descent</th>
+<th>Normal Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Need to choose alpha</td>
+<td>No need to choose alpha</td>
+</tr>
+<tr class="even">
+<td>Needs many iterations</td>
+<td>No need to iterate</td>
+</tr>
+<tr class="odd">
+<td>O (<span class="math inline">\(kn^2\)</span>)</td>
+<td>O (<span class="math inline">\(n^3\)</span>), need to calculate inverse of <span class="math inline">\(X^TX\)</span></td>
+</tr>
+<tr class="even">
+<td>Works well when n is large</td>
+<td>Slow if n is very large</td>
+</tr>
+</tbody>
+</table>
+<p>With the normal equation, computing the inversion has complexity <span class="math inline">\(\mathcal{O}(n^3)\)</span>. So if we have a very large number of features, the normal equation will be slow. In practice, when n exceeds 10,000 it might be a good time to go from a normal solution to an iterative process.</p>
+<h1 id="normal-equation-noninvertibility">Normal Equation Noninvertibility</h1>
+<p>When implementing the normal equation in octave we want to use the ‘pinv’ function rather than ‘inv.’ The ‘pinv’ function will give you a value of <span class="math inline">\(\theta\)</span> even if <span class="math inline">\(X^TX\)</span> is not invertible.</p>
+<p>If <span class="math inline">\(X^TX\)</span> is <strong>noninvertible,</strong> the common causes might be having :</p>
+<ul>
+<li>Redundant features, where two features are very closely related (i.e. they are linearly dependent)</li>
+<li>Too many features (e.g. m ≤ n). In this case, delete some features or use “regularization” (to be explained in a later lesson).</li>
+</ul>
+<p>Solutions to the above problems include deleting a feature that is linearly dependent with another or deleting one or more features when there are too many features.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/28/Git-基本命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1068,364 +1503,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/Model-Representation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songc's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/24/Model-Representation/" itemprop="url">Model Representation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T15:58:01+08:00">
-                2017-07-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="model-representation">Model Representation</h1>
-<p>To establish notation for future use, we’ll use x<sup>(i)</sup> to denote the “input” variables (living area in this example), also called input features, and y<sup>(i)</sup> to denote the “output” or target variable that we are trying to predict (price). A pair (x<sup>(i)</sup>,y<sup>(i)</sup>) is called a training example, and the dataset that we’ll be using to learn—a list of m training examples (x<sup>(i)</sup>,y<sup>(i)</sup>);i=1,…,m—is called a training set. Note that the superscript “(i)” in the notation is simply an index into the training set, and has nothing to do with exponentiation. We will also use X to denote the space of input values, and Y to denote the space of output values. In this example, X = Y = ℝ.
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/24/Model-Representation/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/21/Unsupervised-Learning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songc's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/21/Unsupervised-Learning/" itemprop="url">Unsupervised Learning</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T10:54:10+08:00">
-                2017-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<h2 id="unsupervised-learning">Unsupervised Learning</h2>
-<p>Unsupervised learning allows us to approach problems with little or no idea what our results should look like. We can derive structure from data where we don’t necessarily know the effect of the variables.</p>
-<p>We can derive this structure by clustering the data based on relationships among the variables in the data.</p>
-<p>With unsupervised learning there is no feedback based on the prediction results.</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/21/Unsupervised-Learning/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/21/Supervised-Learning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songc's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/21/Supervised-Learning/" itemprop="url">Supervised Learning</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T10:34:37+08:00">
-                2017-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<h2 id="supervised-learning">Supervised Learning</h2>
-<p>In supervised learning, we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the output.</p>
-<p>Supervised learning problems are categorized into “regression” and “classification” problems. In a regression problem, we are trying to predict results within a continuous output, meaning that we are trying to map input variables to some continuous function. In a classification problem, we are instead trying to predict results in a discrete output. In other words, we are trying to map input variables into discrete categories.</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/21/Supervised-Learning/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1475,7 +1552,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1488,7 +1565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

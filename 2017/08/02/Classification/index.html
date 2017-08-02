@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Machine Learning,Andrew Ng," />
 
 
 
@@ -93,20 +93,19 @@
 
 
 
-<meta name="description" content="Naive-bayes classifier  贝叶斯定理 贝叶斯定理解决了现实生活里经常遇到的问题：已知某条件概率，如何得到两个事件交换后的概率，也就是在已知P(A|B)的情况下如何求得P(B|A)。这里先解释什么是条件概率： 表示事件B已经发生的前提下，事件A发生的概率，叫做事件B发生下事件A的条件概率。其基本求解公式为：。">
-<meta name="keywords" content="Machine Learning">
+<meta name="description" content="Classification To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well b">
+<meta name="keywords" content="Machine Learning,Andrew Ng">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Naive-Bayes">
-<meta property="og:url" content="http://yoursite.com/2017/06/26/Naive-Bayes/index.html">
+<meta property="og:title" content="Classification">
+<meta property="og:url" content="http://yoursite.com/2017/08/02/Classification/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
-<meta property="og:description" content="Naive-bayes classifier  贝叶斯定理 贝叶斯定理解决了现实生活里经常遇到的问题：已知某条件概率，如何得到两个事件交换后的概率，也就是在已知P(A|B)的情况下如何求得P(B|A)。这里先解释什么是条件概率： 表示事件B已经发生的前提下，事件A发生的概率，叫做事件B发生下事件A的条件概率。其基本求解公式为：。">
-<meta property="og:image" content="http://yoursite.com/2017/06/26/Naive-Bayes/image1.gif">
-<meta property="og:image" content="http://yoursite.com/2017/06/26/Naive-Bayes/image2.gif">
-<meta property="og:updated_time" content="2017-07-08T09:09:43.470Z">
+<meta property="og:description" content="Classification To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well b">
+<meta property="og:image" content="http://yoursite.com/2017/08/02/Classification/Classification/Logistic_function.png">
+<meta property="og:updated_time" content="2017-08-02T11:44:17.636Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Naive-Bayes">
-<meta name="twitter:description" content="Naive-bayes classifier  贝叶斯定理 贝叶斯定理解决了现实生活里经常遇到的问题：已知某条件概率，如何得到两个事件交换后的概率，也就是在已知P(A|B)的情况下如何求得P(B|A)。这里先解释什么是条件概率： 表示事件B已经发生的前提下，事件A发生的概率，叫做事件B发生下事件A的条件概率。其基本求解公式为：。">
-<meta name="twitter:image" content="http://yoursite.com/2017/06/26/Naive-Bayes/image1.gif">
+<meta name="twitter:title" content="Classification">
+<meta name="twitter:description" content="Classification To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well b">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/02/Classification/Classification/Logistic_function.png">
 
 
 
@@ -134,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/26/Naive-Bayes/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/02/Classification/"/>
 
 
 
 
 
-  <title>Naive-Bayes | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Classification | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -259,7 +258,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/26/Naive-Bayes/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/Classification/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Chao">
@@ -276,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Naive-Bayes</h1>
+          <h1 class="post-title" itemprop="name headline">Classification</h1>
         
 
         <div class="post-meta">
@@ -288,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T21:37:45+08:00">
-                2017-06-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T19:40:17+08:00">
+                2017-08-02
               </time>
             
 
@@ -323,20 +322,38 @@
       
 
       
-        <h1 id="naive-bayes-classifier">Naive-bayes classifier</h1>
-<blockquote>
-<p>贝叶斯定理</p>
-<p>贝叶斯定理解决了现实生活里经常遇到的问题：已知某条件概率，如何得到两个事件交换后的概率，也就是在已知P(A|B)的情况下如何求得P(B|A)。这里先解释什么是条件概率：</p>
-<p>表示事件B已经发生的前提下，事件A发生的概率，叫做事件B发生下事件A的条件概率。其基本求解公式为：<img src="/2017/06/26/Naive-Bayes/image1.gif" alt="image1.gif" title="">。 <a id="more"></a> 贝叶斯定理之所以有用，是因为我们在生活中经常遇到这种情况：我们可以很容易直接得出P(A|B)，P(B|A)则很难直接得出，但我们更关心P(B|A)，贝叶斯定理就为我们打通从P(A|B)获得P(B|A)的道路。</p>
-</blockquote>
-<blockquote>
-<p>下面不加证明地直接给出贝叶斯定理：<img src="/2017/06/26/Naive-Bayes/image2.gif" alt="image2.gif" title=""></p>
-</blockquote>
-<blockquote>
-<p>在机器学习中，朴素贝叶斯分类器是一系列以<strong>假设特征之间强（朴素）独立下</strong>运用贝叶斯定理为基础的简单概率分类器。朴素贝叶斯自20世纪50年代已广泛研究。在20世纪60年代初就以另外一个名称引入到文本信息检索界中， 并仍然是文本分类的一种热门（基准）方法，文本分类是以词频为特征判断文件所属类别或其他（如垃圾邮件、合法性、体育或政治等等）的问题。通过适当的预处理，它可以与这个领域更先进的方法（包括支持向量机）相竞争.它在自动医疗诊断中也有应用。</p>
-</blockquote>
-<p><strong>朴素贝叶斯在文本分类中忽略了词的顺序，只关心词的频率。朴素贝叶斯分类方法比较简单，也十分的有效，在进行训练和预测时也比较的快速。</strong></p>
-<p>sklearn 中朴素贝叶斯的使用方法： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from sklearn.naive_bayes import GaussianNB</div><div class="line">from sklearn.metrics import accuracy_score</div><div class="line">clt = GaussianNB();</div><div class="line">t0 = time()</div><div class="line">clt.fit(features_train,labels_train);</div><div class="line">print &quot;train time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">t0 = time()</div><div class="line">labels_predict=clt.predict(features_test)</div><div class="line">print &quot; time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">accuracy_score(labels_test,labels_predict)</div></pre></td></tr></table></figure></p>
+        <h1 id="classification">Classification</h1>
+<p>To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well because classification is not actually a linear function.</p>
+<p>The classification problem is just like the regression problem, except that the values y we now want to predict take on only a small number of discrete values. For now, we will focus on the <strong>binary classification</strong> <strong>problem</strong> in which y can take on only two values, 0 and 1. (Most of what we say here will also generalize to the multiple-class case.) For instance, if we are trying to build a spam classifier for email, then <span class="math inline">\(x^{(i)}​\)</span> may be some features of a piece of email, and y may be 1 if it is a piece of spam mail, and 0 otherwise. Hence, y∈{0,1}. 0 is also called the negative class, and 1 the positive class, and they are sometimes also denoted by the symbols “-” and “+.” Given <span class="math inline">\(x^{(i)}​\)</span>, the corresponding <span class="math inline">\(y^{(i)}​\)</span> is also called the label for the training example.</p>
+<h1 id="hypothesis-representation">Hypothesis Representation</h1>
+<p>We could approach the classification problem ignoring the fact that y is discrete-valued, and use our old linear regression algorithm to try to predict y given x. However, it is easy to construct examples where this method performs very poorly. Intuitively, it also doesn’t make sense for <span class="math inline">\(h_\theta (x)\)</span> to take values larger than 1 or smaller than 0 when we know that y ∈ {0, 1}. To fix this, let’s change the form for our hypotheses <span class="math inline">\(h_\theta (x)\)</span> to satisfy <span class="math inline">\(0 \leq h_\theta (x) \leq 1\)</span>. This is accomplished by plugging <span class="math inline">\(\theta^Tx\)</span> into the Logistic Function.</p>
+<p>Our new form uses the “Sigmoid Function,” also called the “Logistic Function”: <span class="math display">\[
+\begin{align*}&amp; h_\theta (x) = g ( \theta^T x ) \newline \newline&amp; z = \theta^T x \newline&amp; g(z) = \dfrac{1}{1 + e^{-z}}\end{align*}
+\]</span> The following image shows us what the sigmoid function looks like:</p>
+<div class="figure">
+<img src="./Classification/Logistic_function.png" alt="img">
+<p class="caption">img</p>
+</div>
+<p>The function g(z), shown here, maps any real number to the (0, 1) interval, making it useful for transforming an arbitrary-valued function into a function better suited for classification.</p>
+<p><span class="math inline">\(h_\theta (x)\)</span> will give us the <strong>probability</strong> that our output is 1. For example, <span class="math inline">\(h_\theta (x) = 0.7\)</span> gives us a probability of 70% that our output is 1. Our probability that our prediction is 0 is just the complement of our probability that it is 1 (e.g. if probability that it is 1 is 70%, then the probability that it is 0 is 30%). <span class="math display">\[
+\begin{align*}&amp; h_\theta(x) = P(y=1 | x ; \theta) = 1 - P(y=0 | x ; \theta) \newline&amp; P(y = 0 | x;\theta) + P(y = 1 | x ; \theta) = 1\end{align*}
+\]</span></p>
+<h1 id="decision-boundary">Decision Boundary</h1>
+<p>In order to get our discrete 0 or 1 classification, we can translate the output of the hypothesis function as follows: <span class="math display">\[
+\begin{align*}&amp; h_\theta(x) \geq 0.5 \rightarrow y = 1 \newline&amp; h_\theta(x) &lt; 0.5 \rightarrow y = 0 \newline\end{align*}
+\]</span> The way our logistic function g behaves is that when its input is greater than or equal to zero, its output is greater than or equal to 0.5: <span class="math display">\[
+\begin{align*}&amp; g(z) \geq 0.5 \newline&amp; when \; z \geq 0\end{align*}
+\]</span> Remember. <span class="math display">\[
+\begin{align*}z=0, e^{0}=1 \Rightarrow g(z)=1/2\newline z \to \infty, e^{-\infty} \to 0 \Rightarrow g(z)=1 \newline z \to -\infty, e^{\infty}\to \infty \Rightarrow g(z)=0 \end{align*}
+\]</span> So if our input to g is <span class="math inline">\(\theta^TX\)</span>, then that means: <span class="math display">\[
+\begin{align*}&amp; h_\theta(x) = g(\theta^T x) \geq 0.5 \newline&amp; when \; \theta^T x \geq 0\end{align*}
+\]</span> From these statements we can now say: <span class="math display">\[
+\begin{align*}&amp; \theta^T x \geq 0 \Rightarrow y = 1 \newline&amp; \theta^T x &lt; 0 \Rightarrow y = 0 \newline\end{align*}
+\]</span> The <strong>decision boundary</strong> is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.</p>
+<p><strong>Example</strong>: <span class="math display">\[
+\begin{align*}&amp; \theta = \begin{bmatrix}5 \newline -1 \newline 0\end{bmatrix} \newline &amp; y = 1 \; if \; 5 + (-1) x_1 + 0 x_2 \geq 0 \newline &amp; 5 - x_1 \geq 0 \newline &amp; - x_1 \geq -5 \newline&amp; x_1 \leq 5 \newline \end{align*}
+\]</span> In this case, our decision boundary is a straight vertical line placed on the graph where <span class="math inline">\(x_1 = 5\)</span>, and everything to the left of that denotes y = 1, while everything to the right denotes y = 0.</p>
+<p>Again, the input to the sigmoid function g(z) (e.g. <span class="math inline">\(\theta^T X\)</span>) doesn’t need to be linear, and could be a function that describes a circle (e.g. <span class="math inline">\(z = \theta_0 + \theta_1 x_1^2 +\theta_2 x_2^2\)</span>) or any shape to fit our data.</p>
 
       
     </div>
@@ -368,6 +385,8 @@
           
             <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
           
+            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+          
         </div>
       
 
@@ -379,8 +398,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/25/Random-Forest/" rel="next" title="Random Forest">
-                <i class="fa fa-chevron-left"></i> Random Forest
+              <a href="/2017/08/02/The-Phrasal-Verbs-of-Love-and-Relationship/" rel="next" title="The Phrasal Verbs of Love and Relationship">
+                <i class="fa fa-chevron-left"></i> The Phrasal Verbs of Love and Relationship
               </a>
             
           </div>
@@ -388,10 +407,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/26/Support-Vector-Machine/" rel="prev" title="Support Vector Machine">
-                Support Vector Machine <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -531,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#naive-bayes-classifier"><span class="nav-number">1.</span> <span class="nav-text">Naive-bayes classifier</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#classification"><span class="nav-number">1.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hypothesis-representation"><span class="nav-number">2.</span> <span class="nav-text">Hypothesis Representation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#decision-boundary"><span class="nav-number">3.</span> <span class="nav-text">Decision Boundary</span></a></li></ol></div>
             
 
           </div>

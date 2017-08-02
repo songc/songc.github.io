@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Machine Learning,Andrew Ng," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -93,17 +93,12 @@
 
 
 
-<meta name="description" content="Multiple Features Linear regression with multiple variables is also known as “multivariate linear regression”.">
-<meta name="keywords" content="Machine Learning,Andrew Ng">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Multiple Features">
-<meta property="og:url" content="http://yoursite.com/2017/07/26/Multiple-Features/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Songc&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/tags/English/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
-<meta property="og:description" content="Multiple Features Linear regression with multiple variables is also known as “multivariate linear regression”.">
-<meta property="og:updated_time" content="2017-07-26T12:36:10.442Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Multiple Features">
-<meta name="twitter:description" content="Multiple Features Linear regression with multiple variables is also known as “multivariate linear regression”.">
+<meta name="twitter:title" content="Songc&#39;s Blog">
 
 
 
@@ -131,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/26/Multiple-Features/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/English/"/>
 
 
 
 
 
-  <title>Multiple Features | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>标签: English | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -162,7 +157,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,163 +241,44 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Multiple-Features/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Chao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Songc's Blog">
-    </span>
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h1>English<small>标签</small>
+      </h1>
+    </div>
 
     
-      <header class="post-header">
+      
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">Multiple Features</h1>
-        
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2017/08/02/The-Phrasal-Verbs-of-Love-and-Relationship/" itemprop="url">
               
-                <span class="post-meta-item-text">发表于</span>
+                <span itemprop="name">The Phrasal Verbs of Love and Relationship</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T20:31:29+08:00">
-                2017-07-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="multiple-features">Multiple Features</h1>
-<p>Linear regression with multiple variables is also known as “multivariate linear regression”. <a id="more"></a> We now introduce notation for equations where we can have any number of input variables. <span class="math display">\[
-\begin{align*}x_j^{(i)} &amp;= \text{value of feature } j \text{ in the }i^{th}\text{ training example} \newline x^{(i)}&amp; = \text{the input (features) of the }i^{th}\text{ training example} \newline m &amp;= \text{the number of training examples} \newline n &amp;= \text{the number of features} \end{align*}
-\]</span> The multivariable form of the hypothesis function accommodating these multiple features is as follows: <span class="math display">\[
-h_\theta (x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \cdots + \theta_n x_n
-\]</span> In order to develop intuition about this function, we can think about <span class="math inline">\(\theta_0\)</span> as the basic price of a house, <span class="math inline">\(\theta_1\)</span> as the price per square meter, <span class="math inline">\(\theta_2\)</span> as the price per floor, etc. <span class="math inline">\(x_1\)</span> will be the number of square meters in the house, <span class="math inline">\(x_2\)</span> the number of floors, etc.</p>
-<p>Using the definition of matrix multiplication, our multivariable hypothesis function can be concisely represented as: <span class="math display">\[
-\begin{align*}h_\theta(x) =\begin{bmatrix}\theta_0 \hspace{2em} \theta_1 \hspace{2em} ... \hspace{2em} \theta_n\end{bmatrix}\begin{bmatrix}x_0 \newline x_1 \newline \vdots \newline x_n\end{bmatrix}= \theta^T x\end{align*}
-\]</span> This is a vectorization of our hypothesis function for one training example; see the lessons on vectorization to learn more.</p>
-<p>Remark: Note that for convenience reasons in this course we assume <span class="math inline">\(x_{0}^{(i)} =1 \text{ for } (i\in { 1,\dots, m } )\)</span>. This allows us to do matrix operations with theta and x. Hence making the two vectors ‘<span class="math inline">\(\theta\)</span>’ and <span class="math inline">\(x^{(i)}\)</span> match each other element-wise (that is, have the same number of elements: n+1).</p>
-
-      
-    </div>
-
-    <div>
-      
+            </a>
         
+      </h2>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-08-02T19:38:26+08:00"
+              content="2017-08-02" >
+          08-02
+        </time>
+      </div>
 
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-          
-            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/07/25/Hexo中渲染MathJax数学公式的问题/" rel="next" title="Hexo中渲染MathJax数学公式的问题">
-                <i class="fa fa-chevron-left"></i> Hexo中渲染MathJax数学公式的问题
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/26/Gradient-Descent-For-Multiple-Variables/" rel="prev" title="Gradient Descent For Multiple Variables">
-                Gradient Descent For Multiple Variables <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -410,10 +286,6 @@ h_\theta (x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \cdots + 
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -433,17 +305,8 @@ h_\theta (x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \cdots + 
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -516,22 +379,6 @@ h_\theta (x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \cdots + 
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#multiple-features"><span class="nav-number">1.</span> <span class="nav-text">Multiple Features</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -645,10 +492,10 @@ h_\theta (x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \cdots + 
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-
+  
 
   
 
