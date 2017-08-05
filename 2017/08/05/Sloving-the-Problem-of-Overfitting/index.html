@@ -1,0 +1,781 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Machine Learning,Andrew Ng," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Sloving the Problem of Overfitting The Problem of Overfitting Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a \(y = \theta_0 + \theta_1x\) to">
+<meta name="keywords" content="Machine Learning,Andrew Ng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sloving the Problem of Overfitting">
+<meta property="og:url" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/index.html">
+<meta property="og:site_name" content="Songc&#39;s Blog">
+<meta property="og:description" content="Sloving the Problem of Overfitting The Problem of Overfitting Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a \(y = \theta_0 + \theta_1x\) to">
+<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/overfitting.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost-function.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized1.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost.png">
+<meta property="og:updated_time" content="2017-08-05T12:42:05.184Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sloving the Problem of Overfitting">
+<meta name="twitter:description" content="Sloving the Problem of Overfitting The Problem of Overfitting Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a \(y = \theta_0 + \theta_1x\) to">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/overfitting.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/"/>
+
+
+
+
+
+  <title>Sloving the Problem of Overfitting | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Songc's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Sloving the Problem of Overfitting</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T20:36:16+08:00">
+                2017-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="sloving-the-problem-of-overfitting">Sloving the Problem of Overfitting</h1>
+<h3 id="the-problem-of-overfitting">The Problem of Overfitting</h3>
+<p>Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a <span class="math inline">\(y = \theta_0 + \theta_1x\)</span> to a dataset. We see that the data doesn’t really lie on straight line, and so the fit is not very good. <a id="more"></a> <img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/overfitting.png" alt="overfitting.png" title=""></p>
+<p>Instead, if we had added an extra feature <span class="math inline">\(x^2\)</span> , and fit <span class="math inline">\(y = \theta_0 + \theta_1x + \theta_2x^2\)</span> , then we obtain a slightly better fit to the data (See middle figure). Naively, it might seem that the more features we add, the better. However, there is also a danger in adding too many features: The rightmost figure is the result of fitting a <span class="math inline">\(5^{th}\)</span> order polynomial <span class="math inline">\(y = \sum_{j=0} ^5 \theta_j x^j\)</span>. We see that even though the fitted curve passes through the data perfectly, we would not expect this to be a very good predictor of, say, housing prices (y) for different living areas (x). Without formally defining what these terms mean, we’ll say the figure on the left shows an instance of <strong>underfitting</strong>—in which the data clearly shows structure not captured by the model—and the figure on the right is an example of <strong>overfitting</strong>.</p>
+<p>Underfitting, or high bias, is when the form of our hypothesis function h maps poorly to the trend of the data. It is usually caused by a function that is too simple or uses too few features. At the other extreme, overfitting, or high variance, is caused by a hypothesis function that fits the available data but does not generalize well to predict new data. It is usually caused by a complicated function that creates a lot of unnecessary curves and angles unrelated to the data.</p>
+<p>This terminology is applied to both linear and logistic regression. There are two main options to address the issue of overfitting:</p>
+<ol style="list-style-type: decimal">
+<li>Reduce the number of features:</li>
+</ol>
+<ul>
+<li>Manually select which features to keep.</li>
+<li>Use a model selection algorithm (studied later in the course).</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Regularization</li>
+</ol>
+<ul>
+<li>Keep all the features, but reduce the magnitude of parameters <span class="math inline">\(\theta_j\)</span>.</li>
+<li>Regularization works well when we have a lot of slightly useful features.</li>
+</ul>
+<h3 id="cost-function">Cost Function</h3>
+<p>If we have overfitting from our hypothesis function, we can reduce the weight that some of the terms in our function carry by increasing their cost.</p>
+<p>Say we wanted to make the following function more quadratic: <span class="math display">\[
+\theta_0 + \theta_1x + \theta_2x^2 + \theta_3x^3 + \theta_4x^4
+\]</span> We’ll want to eliminate the influence of <span class="math inline">\(\theta_3 x^3\)</span> and <span class="math inline">\(\theta_4 x^4\)</span> . Without actually getting rid of these features or changing the form of our hypothesis, we can instead modify our <strong>cost function</strong>: <span class="math display">\[
+min_\theta\ \dfrac{1}{2m}\sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2 + 1000\cdot\theta_3^2 + 1000\cdot\theta_4^2
+\]</span> We’ve added two extra terms at the end to inflate the cost of <span class="math inline">\(\theta_3\)</span> and <span class="math inline">\(\theta_4\)</span>. Now, in order for the cost function to get close to zero, we will have to reduce the values of <span class="math inline">\(\theta_3\)</span> and <span class="math inline">\(\theta_4\)</span> to near zero. This will in turn greatly reduce the values of <span class="math inline">\(\theta_3 x^3\)</span> and <span class="math inline">\(\theta_4 x^4\)</span> in our hypothesis function. As a result, we see that the new hypothesis (depicted by the pink curve) looks like a quadratic function but fits the data better due to the extra small terms <span class="math inline">\(\theta_3 x^3\)</span> and <span class="math inline">\(\theta_4 x^4\)</span>.</p>
+<img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost-function.png" alt="regularized-cost-function.png" title="">
+<p>We could also regularize all of our theta parameters in a single summation as: <span class="math display">\[
+min_\theta\ \dfrac{1}{2m}\  \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2 + \lambda\ \sum_{j=1}^n \theta_j^2
+\]</span> The λ, or lambda, is the <strong>regularization parameter</strong>. It determines how much the costs of our theta parameters are inflated.</p>
+<p>Using the above cost function with the extra summation, we can smooth the output of our hypothesis function to reduce overfitting. If lambda is chosen to be too large, it may smooth out the function too much and cause underfitting. Hence, what would happen if <span class="math inline">\(\lambda = 0\)</span> or is too small ?</p>
+<h3 id="regularized-linear-regression">Regularized Linear Regression</h3>
+<p>We can apply regularization to both linear regression and logistic regression. We will approach linear regression first.</p>
+<h4 id="gradient-descent">Gradient Descent</h4>
+<p>We will modify our gradient descent function to separate out <span class="math inline">\(\theta_0\)</span> from the rest of the parameters because we do not want to penalize <span class="math inline">\(\theta_0\)</span>. <span class="math display">\[
+\begin{align*} &amp; \text{Repeat}\ \lbrace \newline &amp; \ \ \ \ \theta_0 := \theta_0 - \alpha\ \frac{1}{m}\ \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)} \newline &amp; \ \ \ \ \theta_j := \theta_j - \alpha\ \left[ \left( \frac{1}{m}\ \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} \right) + \frac{\lambda}{m}\theta_j \right] &amp;\ \ \ \ \ \ \ \ \ \ j \in \lbrace 1,2...n\rbrace\newline &amp; \rbrace \end{align*}
+\]</span> The term <span class="math inline">\(\frac{\lambda}{m}\theta_j\)</span> performs our regularization. With some manipulation our update rule can also be represented as: <span class="math display">\[
+\theta_j := \theta_j(1 - \alpha\frac{\lambda}{m}) - \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}
+\]</span> The first term in the above equation, <span class="math inline">\(1 - \alpha\frac{\lambda}{m}\)</span> will always be less than 1. Intuitively you can see it as reducing the value of <span class="math inline">\(\theta_j\)</span> by some amount on every update. Notice that the second term is now exactly the same as it was before.</p>
+<h4 id="normal-equation"><strong>Normal Equation</strong></h4>
+<p>Now let’s approach regularization using the alternate method of the non-iterative normal equation.</p>
+<p>To add in regularization, the equation is the same as our original, except that we add another term inside the parentheses: <span class="math display">\[
+\begin{align*}&amp; \theta = \left( X^TX + \lambda \cdot L \right)^{-1} X^Ty \newline&amp; \text{where}\ \ L = \begin{bmatrix} 0 &amp; &amp; &amp; &amp; \newline &amp; 1 &amp; &amp; &amp; \newline &amp; &amp; 1 &amp; &amp; \newline &amp; &amp; &amp; \ddots &amp; \newline &amp; &amp; &amp; &amp; 1 \newline\end{bmatrix}\end{align*}
+\]</span> L is a matrix with 0 at the top left and 1’s down the diagonal, with 0’s everywhere else. It should have dimension (n+1)×(n+1). Intuitively, this is the identity matrix (though we are not including <span class="math inline">\(x_0\)</span>), multiplied with a single real number λ.</p>
+<p>Recall that if m &lt; n, then <span class="math inline">\(X^TX\)</span> is non-invertible. However, when we add the term λ⋅L, then <span class="math inline">\(X^TX\)</span> + λ⋅L becomes invertible.</p>
+<h3 id="regularized-logistic-regression">Regularized Logistic Regression</h3>
+<p>We can regularize logistic regression in a similar way that we regularize linear regression. As a result, we can avoid overfitting. The following image shows how the regularized function, displayed by the pink line, is less likely to overfit than the non-regularized function represented by the blue line:</p>
+<img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized1.png" alt="regularized1.png" title="">
+<h4 id="cost-function-1">Cost Function</h4>
+<p>Recall that our cost function for logistic regression was: <span class="math display">\[
+J(\theta) = - \frac{1}{m} \sum_{i=1}^m \large[ y^{(i)}\ \log (h_\theta (x^{(i)})) + (1 - y^{(i)})\ \log (1 - h_\theta(x^{(i)})) \large]
+\]</span> We can regularize this equation by adding a term to the end: <span class="math display">\[
+J(\theta) = - \frac{1}{m} \sum_{i=1}^m \large[ y^{(i)}\ \log (h_\theta (x^{(i)})) + (1 - y^{(i)})\ \log (1 - h_\theta(x^{(i)}))\large] + \frac{\lambda}{2m}\sum_{j=1}^n \theta_j^2
+\]</span> The second sum, <span class="math inline">\(\sum_{j=1}^n \theta_j^2\)</span> <strong>means to explicitly exclude</strong> the bias term, <span class="math inline">\(\theta_0\)</span>. I.e. the θ vector is indexed from 0 to n (holding n+1 values, <span class="math inline">\(\theta_0\)</span> through <span class="math inline">\(\theta_0\)</span>), and this sum explicitly skips <span class="math inline">\(\theta_0\)</span>, by running from 1 to n, skipping 0. Thus, when computing the equation, we should continuously update the two following equations:</p>
+<img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost.png" alt="regularized-cost.png" title="">
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/04/For-or-To/" rel="next" title="For or To">
+                <i class="fa fa-chevron-left"></i> For or To
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Song Chao" />
+          <p class="site-author-name" itemprop="name">Song Chao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/songc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/a9uHv6tea18To1A" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sloving-the-problem-of-overfitting"><span class="nav-number">1.</span> <span class="nav-text">Sloving the Problem of Overfitting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#the-problem-of-overfitting"><span class="nav-number">1.0.1.</span> <span class="nav-text">The Problem of Overfitting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cost-function"><span class="nav-number">1.0.2.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#regularized-linear-regression"><span class="nav-number">1.0.3.</span> <span class="nav-text">Regularized Linear Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gradient-descent"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">Gradient Descent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#normal-equation"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">Normal Equation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#regularized-logistic-regression"><span class="nav-number">1.0.4.</span> <span class="nav-text">Regularized Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cost-function-1"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">Cost Function</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song Chao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
