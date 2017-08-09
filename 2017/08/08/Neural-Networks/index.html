@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Neural Networks Model Representation I Let’s examine how we will represent a hypothesis function using neural networks. At a very simple level, neurons are basically computational units that take in">
 <meta property="og:image" content="http://yoursite.com/2017/08/08/Neural-Networks/neural.png">
-<meta property="og:updated_time" content="2017-08-08T11:19:32.923Z">
+<meta property="og:updated_time" content="2017-08-09T12:12:16.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neural Networks">
 <meta name="twitter:description" content="Neural Networks Model Representation I Let’s examine how we will represent a hypothesis function using neural networks. At a very simple level, neurons are basically computational units that take in">
@@ -341,6 +341,25 @@
 \]</span> The +1 comes from the addition in <span class="math inline">\(\Theta^{(j)}\)</span> of the “bias nodes,” <span class="math inline">\(x_0\)</span> and <span class="math inline">\(\Theta^{(j)}\)</span> . In other words the output nodes will not include the bias nodes while the inputs will. The following image summarizes our model representation:</p>
 <img src="/2017/08/08/Neural-Networks/neural.png" alt="neural.png" title="">
 <p>Example: layer 1 has 2 input nodes and layer 2 has 4 activation nodes. Dimension of <span class="math inline">\(\Theta^{(1)}\)</span> is going to be 4×3 where <span class="math inline">\(s_j=2\)</span> and <span class="math inline">\(s_{j+1}=4\)</span>, so <span class="math inline">\(s_{j+1} \times (s_j + 1) = 4 \times 3\)</span>.</p>
+<h3 id="model-representation-ii">Model Representation II</h3>
+<p>To re-iterate, the following is an example of a neural network: <span class="math display">\[
+\begin{align*} a_1^{(2)} = g(\Theta_{10}^{(1)}x_0 + \Theta_{11}^{(1)}x_1 + \Theta_{12}^{(1)}x_2 + \Theta_{13}^{(1)}x_3) \newline a_2^{(2)} = g(\Theta_{20}^{(1)}x_0 + \Theta_{21}^{(1)}x_1 + \Theta_{22}^{(1)}x_2 + \Theta_{23}^{(1)}x_3) \newline a_3^{(2)} = g(\Theta_{30}^{(1)}x_0 + \Theta_{31}^{(1)}x_1 + \Theta_{32}^{(1)}x_2 + \Theta_{33}^{(1)}x_3) \newline h_\Theta(x) = a_1^{(3)} = g(\Theta_{10}^{(2)}a_0^{(2)} + \Theta_{11}^{(2)}a_1^{(2)} + \Theta_{12}^{(2)}a_2^{(2)} + \Theta_{13}^{(2)}a_3^{(2)}) \newline \end{align*}
+\]</span> In this section we’ll do a vectorized implementation of the above functions. We’re going to define a new variable <span class="math inline">\(z_k^{(j)}\)</span> that encompasses the parameters inside our g function. In our previous example if we replaced by the variable z for all the parameters we would get: <span class="math display">\[
+\begin{align*}a_1^{(2)} = g(z_1^{(2)}) \newline a_2^{(2)} = g(z_2^{(2)}) \newline a_3^{(2)} = g(z_3^{(2)}) \newline \end{align*}
+\]</span> In other words, for layer j=2 and node k, the variable z will be: <span class="math display">\[
+z_k^{(2)} = \Theta_{k,0}^{(1)}x_0 + \Theta_{k,1}^{(1)}x_1 + \cdots + \Theta_{k,n}^{(1)}x_n
+\]</span> The vector representation of x and <span class="math inline">\(z^j\)</span> is: <span class="math display">\[
+\begin{align*}x = \begin{bmatrix}x_0 \newline x_1 \newline\cdots \newline x_n\end{bmatrix} &amp;z^{(j)} = \begin{bmatrix}z_1^{(j)} \newline z_2^{(j)} \newline\cdots \newline z_n^{(j)}\end{bmatrix}\end{align*}
+\]</span> Setting <span class="math inline">\(x = a^{(1)}\)</span>, we can rewrite the equation as: <span class="math display">\[
+z^{(j)} = \Theta^{(j-1)}a^{(j-1)}
+\]</span> We are multiplying our matrix <span class="math inline">\(\Theta^{(j-1)}\)</span> with dimensions <span class="math inline">\(s_j \times (n+1)\)</span> (where <span class="math inline">\(s_j\)</span> is the number of our activation nodes) by our vector <span class="math inline">\(a^{(j-1)}\)</span> with height (n+1). This gives us our vector <span class="math inline">\(z^{(j)}\)</span> with height . Now we can get a vector of our activation nodes for layer j as follows: <span class="math display">\[
+a^{(j)} = g(z^{(j)})
+\]</span> Where our function g can be applied element-wise to our vector <span class="math inline">\(z^{(j)}\)</span>.</p>
+<p>We can then add a bias unit (equal to 1) to layer j after we have computed <span class="math inline">\(a^{(j)}\)</span>. This will be element <span class="math inline">\(a_0^{(j)}\)</span> and will be equal to 1. To compute our final hypothesis, let’s first compute another z vector: <span class="math display">\[
+z^{(j+1)} = \Theta^{(j)}a^{(j)}
+\]</span> We get this final z vector by multiplying the next theta matrix after <span class="math inline">\(\Theta^{(j-1)}\)</span> with the values of all the activation nodes we just got. This last theta matrix <span class="math inline">\(\Theta^{(j)}\)</span> will have only <strong>one row </strong>which is multiplied by one column <span class="math inline">\(a^{(j)}\)</span> so that our result is a single number. We then get our final result with: <span class="math display">\[
+h_\Theta(x) = a^{(j+1)} = g(z^{(j+1)})
+\]</span> Notice that in this <strong>last step</strong>, between layer j and layer j+1, we are doing <strong>exactly the same thing</strong> as we did in logistic regression. Adding all these intermediate layers in neural networks allows us to more elegantly produce interesting and more complex non-linear hypotheses.</p>
 
       
     </div>
@@ -469,7 +488,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -537,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#neural-networks"><span class="nav-number">1.</span> <span class="nav-text">Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#model-representation-i"><span class="nav-number">1.0.1.</span> <span class="nav-text">Model Representation I</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#neural-networks"><span class="nav-number">1.</span> <span class="nav-text">Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#model-representation-i"><span class="nav-number">1.0.1.</span> <span class="nav-text">Model Representation I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#model-representation-ii"><span class="nav-number">1.0.2.</span> <span class="nav-text">Model Representation II</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
