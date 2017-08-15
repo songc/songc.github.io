@@ -1,0 +1,791 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Machine Learing,Andrew Ng," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Cost Function and Backpropagation Cost Function Let’s first define a few variables that we will need to use:  L = total number of layers in the network \(s_l\)= number of units (not counting bias">
+<meta name="keywords" content="Machine Learing,Andrew Ng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cost Function and Backpropagation">
+<meta property="og:url" content="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/index.html">
+<meta property="og:site_name" content="Songc&#39;s Blog">
+<meta property="og:description" content="Cost Function and Backpropagation Cost Function Let’s first define a few variables that we will need to use:  L = total number of layers in the network \(s_l\)= number of units (not counting bias">
+<meta property="og:image" content="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/BP.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/BP1.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/BP2.png">
+<meta property="og:updated_time" content="2017-08-15T12:01:27.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cost Function and Backpropagation">
+<meta name="twitter:description" content="Cost Function and Backpropagation Cost Function Let’s first define a few variables that we will need to use:  L = total number of layers in the network \(s_l\)= number of units (not counting bias">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/BP.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/"/>
+
+
+
+
+
+  <title>Cost Function and Backpropagation | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Songc's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/Cost-Function-and-Backpropagation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Cost Function and Backpropagation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T19:49:36+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="cost-function-and-backpropagation">Cost Function and Backpropagation</h1>
+<h3 id="cost-function">Cost Function</h3>
+<p>Let’s first define a few variables that we will need to use:</p>
+<ul>
+<li>L = total number of layers in the network</li>
+<li><span class="math inline">\(s_l\)</span>= number of units (not counting bias unit) in layer l</li>
+<li>K = number of output units/classes <a id="more"></a> Recall that in neural networks, we may have many output nodes. We denote <span class="math inline">\(h_\theta(x)_k\)</span> as being a hypothesis that results in the <span class="math inline">\(k^{th}\)</span> output. Our cost function for neural networks is going to be a generalization of the one we used for logistic regression. Recall that the cost function for regularized logistic regression was: <span class="math display">\[
+J(\theta) = - \frac{1}{m} \sum_{i=1}^m [ y^{(i)}\ \log (h_\theta (x^{(i)})) + (1 - y^{(i)})\ \log (1 - h_\theta(x^{(i)}))] + \frac{\lambda}{2m}\sum_{j=1}^n \theta_j^2
+\]</span> For neural networks, it is going to be slightly more complicated: <span class="math display">\[
+\begin{gather*} J(\Theta) = - \frac{1}{m} \sum_{i=1}^m \sum_{k=1}^K \left[y^{(i)}_k \log ((h_\Theta (x^{(i)}))_k) + (1 - y^{(i)}_k)\log (1 - (h_\Theta(x^{(i)}))_k)\right] + \frac{\lambda}{2m}\sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}} ( \Theta_{j,i}^{(l)})^2\end{gather*}
+\]</span> We have added a few nested summations to account for our multiple output nodes. In the first part of the equation, before the square brackets, we have an additional nested summation that loops through the number of output nodes.</li>
+</ul>
+<p>In the regularization part, after the square brackets, we must account for multiple theta matrices. The number of columns in our current theta matrix is equal to the number of nodes in our current layer (including the bias unit). The number of rows in our current theta matrix is equal to the number of nodes in the next layer (excluding the bias unit). As before with logistic regression, we square every term.</p>
+<p>Note:</p>
+<ul>
+<li>the double sum simply adds up the logistic regression costs calculated for each cell in the output layer</li>
+<li>the triple sum simply adds up the squares of all the individual Θs in the entire network.</li>
+<li>the i in the triple sum does <strong>not</strong> refer to training example i</li>
+</ul>
+<h3 id="backpropagation-algorithm">Backpropagation Algorithm</h3>
+<p>“Backpropagation” is neural-network terminology for minimizing our cost function, just like what we were doing with gradient descent in logistic and linear regression. Our goal is to compute: <span class="math display">\[
+\min_\Theta J(\Theta)
+\]</span> That is, we want to minimize our cost function J using an optimal set of parameters in theta. In this section we’ll look at the equations we use to compute the partial derivative of J(Θ): <span class="math display">\[
+\dfrac{\partial}{\partial \Theta_{i,j}^{(l)}}J(\Theta)
+\]</span> To do so, we use the following algorithm:</p>
+<img src="/2017/08/15/Cost-Function-and-Backpropagation/BP.png" alt="BP.png" title="">
+<p><strong>Back propagation Algorithm</strong></p>
+<p>Given training set <span class="math inline">\(\lbrace (x^{(1)}, y^{(1)}) \cdots (x^{(m)}, y^{(m)})\rbrace\)</span></p>
+<ul>
+<li>Set <span class="math inline">\(\Delta^{(l)}_{i,j}\)</span> := 0 for all (l,i,j), (hence you end up having a matrix full of zeros)</li>
+</ul>
+<p>For training example t =1 to m:</p>
+<ol style="list-style-type: decimal">
+<li>Set <span class="math inline">\(a^{(1)} := x^{(t)}\)</span></li>
+<li>Perform forward propagation to compute <span class="math inline">\(a^{(l)}\)</span> for l=2,3,…,L</li>
+</ol>
+<img src="/2017/08/15/Cost-Function-and-Backpropagation/BP1.png" alt="BP1.png" title="">
+<ol start="3" style="list-style-type: decimal">
+<li>Using <span class="math inline">\(y^{(t)}\)</span>, compute <span class="math inline">\(\delta^{(L)} = a^{(L)} - y^{(t)}\)</span></li>
+</ol>
+<p>Where L is our total number of layers and <span class="math inline">\(a^{(L)}\)</span> is the vector of outputs of the activation units for the last layer. So our “error values” for the last layer are simply the differences of our actual results in the last layer and the correct outputs in y. To get the delta values of the layers before the last layer, we can use an equation that steps us back from right to left:</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Compute <span class="math inline">\(\delta^{(L-1)}, \delta^{(L-2)},\dots,\delta^{(2)}\)</span> using <span class="math inline">\(\delta^{(l)} = ((\Theta^{(l)})^T \delta^{(l+1)})\ .*\ a^{(l)}\ .*\ (1 - a^{(l)})\)</span></li>
+</ol>
+<p>The delta values of layer l are calculated by multiplying the delta values in the next layer with the theta matrix of layer l. We then element-wise multiply that with a function called g’, or g-prime, which is the derivative of the activation function g evaluated with the input values given by <span class="math inline">\(z^{(l)}\)</span>.</p>
+<p>The g-prime derivative terms can also be written out as: <span class="math display">\[
+   g&#39;(z^{(l)}) = a^{(l)}\ .*\ (1 - a^{(l)})
+   \]</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li><span class="math inline">\(\Delta^{(l)}_{i,j} := \Delta^{(l)}_{i,j} + a_j^{(l)} \delta_i^{(l+1)}\)</span> or with vectorization, <span class="math inline">\(\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T\)</span></li>
+</ol>
+<p>Hence we update our new Δ matrix.</p>
+<ul>
+<li><span class="math inline">\(D^{(l)}_{i,j} := \dfrac{1}{m}\left(\Delta^{(l)}_{i,j} + \lambda\Theta^{(l)}_{i,j}\right)\)</span>, if j≠0.</li>
+<li><span class="math inline">\(D^{(l)}_{i,j} := \dfrac{1}{m}\Delta^{(l)}_{i,j}\)</span> If j=0</li>
+</ul>
+<p>The capital-delta matrix D is used as an “accumulator” to add up our values as we go along and eventually compute our partial derivative. Thus we get <span class="math inline">\(\frac \partial {\partial \Theta_{ij}^{(l)}} J(\Theta)​\)</span></p>
+<h3 id="backpropagation-intuition">Backpropagation Intuition</h3>
+<p>Recall that the cost function for a neural network is: <span class="math display">\[
+\begin{gather*}J(\Theta) = - \frac{1}{m} \sum_{t=1}^m\sum_{k=1}^K \left[ y^{(t)}_k \ \log (h_\Theta (x^{(t)}))_k + (1 - y^{(t)}_k)\ \log (1 - h_\Theta(x^{(t)})_k)\right] + \frac{\lambda}{2m}\sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_l+1} ( \Theta_{j,i}^{(l)})^2\end{gather*}
+\]</span> If we consider simple non-multiclass classification (k = 1) and disregard regularization, the cost is computed with: <span class="math display">\[
+cost(t) =y^{(t)} \ \log (h_\Theta (x^{(t)})) + (1 - y^{(t)})\ \log (1 - h_\Theta(x^{(t)}))
+\]</span> Intuitively, <span class="math inline">\(\delta_j^{(l)}\)</span> is the “error” for <span class="math inline">\(a^{(l)}_j\)</span> (unit j in layer l). More formally, the delta values are actually the derivative of the cost function: <span class="math display">\[
+\delta_j^{(l)} = \dfrac{\partial}{\partial z_j^{(l)}} cost(t)
+\]</span> Recall that our derivative is the slope of a line tangent to the cost function, so the steeper the slope the more incorrect we are. Let us consider the following neural network below and see how we could calculate some <span class="math inline">\(\delta_j^{(l)}\)</span>:</p>
+<img src="/2017/08/15/Cost-Function-and-Backpropagation/BP2.png" alt="BP2.png" title="">
+<p>In the image above, to calculate <span class="math inline">\(\delta_2^{(2)}\)</span>, we multiply the weights <span class="math inline">\(\Theta_{12}^{(2)}\)</span> and <span class="math inline">\(\Theta_{22}^{(2)}\)</span> by their respective <span class="math inline">\(\delta\)</span> values found to the right of each edge. So we get <span class="math inline">\(\delta_2^{(2)} = \Theta_{12}^{(2)}*\delta_1^{(3)}+ \Theta_{22}^{(2)}*\delta_2^{(3)}\)</span>= <em>+</em>. To calculate every single possible <span class="math inline">\(\delta_j^{(l)}\)</span>, we could start from the right of our diagram. We can think of our edges as our <span class="math inline">\(\Theta_{ij}\)</span>. Going from right to left, to calculate the value of <span class="math inline">\(\delta_j^{(l)}\)</span>, you can just take the over all sum of each weight times the <span class="math inline">\(\delta\)</span> it is coming from. Hence, another example would be <span class="math inline">\(\delta_2^{(3)}=\Theta_{12}^{(3)}*\delta_1^{(4)}\)</span>.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learing/" rel="tag"># Machine Learing</a>
+          
+            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/15/24-Irregular-Verbs/" rel="next" title="24 Irregular Verbs">
+                <i class="fa fa-chevron-left"></i> 24 Irregular Verbs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Song Chao" />
+          <p class="site-author-name" itemprop="name">Song Chao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/songc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/a9uHv6tea18To1A" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cost-function-and-backpropagation"><span class="nav-number">1.</span> <span class="nav-text">Cost Function and Backpropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cost-function"><span class="nav-number">1.0.1.</span> <span class="nav-text">Cost Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backpropagation-algorithm"><span class="nav-number">1.0.2.</span> <span class="nav-text">Backpropagation Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backpropagation-intuition"><span class="nav-number">1.0.3.</span> <span class="nav-text">Backpropagation Intuition</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song Chao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
