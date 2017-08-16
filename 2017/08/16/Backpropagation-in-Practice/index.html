@@ -1,0 +1,772 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Machine Learning,Andrew Ng," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Backpropagation in Practice Implementation Note: Unrolling Parameters With neural networks, we are working with sets of matrices: \[ \begin{align*} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \">
+<meta name="keywords" content="Machine Learning,Andrew Ng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backpropagation in Practice">
+<meta property="og:url" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/index.html">
+<meta property="og:site_name" content="Songc&#39;s Blog">
+<meta property="og:description" content="Backpropagation in Practice Implementation Note: Unrolling Parameters With neural networks, we are working with sets of matrices: \[ \begin{align*} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \">
+<meta property="og:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/unrolling.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/rand-init.png">
+<meta property="og:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/neural-J.png">
+<meta property="og:updated_time" content="2017-08-16T11:36:35.735Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Backpropagation in Practice">
+<meta name="twitter:description" content="Backpropagation in Practice Implementation Note: Unrolling Parameters With neural networks, we are working with sets of matrices: \[ \begin{align*} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/unrolling.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/"/>
+
+
+
+
+
+  <title>Backpropagation in Practice | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Songc's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Backpropagation in Practice</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-16T19:35:41+08:00">
+                2017-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="backpropagation-in-practice">Backpropagation in Practice</h2>
+<h3 id="implementation-note-unrolling-parameters">Implementation Note: Unrolling Parameters</h3>
+<p>With neural networks, we are working with sets of matrices: <span class="math display">\[
+\begin{align*} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \newline D^{(1)}, D^{(2)}, D^{(3)}, \dots \end{align*}
+\]</span> In order to use optimizing functions such as “fminunc()”, we will want to “unroll” all the elements and put them into one long vector: <a id="more"></a></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">thetaVector = [ Theta1(:); Theta2(:); Theta3(:); ]</div><div class="line">deltaVector = [ D1(:); D2(:); D3(:) ]</div></pre></td></tr></table></figure>
+<p>If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11, then we can get back our original matrices from the “unrolled” versions as follows:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Theta1 = <span class="built_in">reshape</span>(thetaVector(<span class="number">1</span>:<span class="number">110</span>),<span class="number">10</span>,<span class="number">11</span>)</div><div class="line">Theta2 = <span class="built_in">reshape</span>(thetaVector(<span class="number">111</span>:<span class="number">220</span>),<span class="number">10</span>,<span class="number">11</span>)</div><div class="line">Theta3 = <span class="built_in">reshape</span>(thetaVector(<span class="number">221</span>:<span class="number">231</span>),<span class="number">1</span>,<span class="number">11</span>)</div></pre></td></tr></table></figure>
+<p>To summarize:</p>
+<img src="/2017/08/16/Backpropagation-in-Practice/unrolling.png" alt="unrolling.png" title="">
+<h3 id="gradient-checking">Gradient Checking</h3>
+<p>Gradient checking will assure that our backpropagation works as intended. We can approximate the derivative of our cost function with: <span class="math display">\[
+\dfrac{\partial}{\partial\Theta}J(\Theta) \approx \dfrac{J(\Theta + \epsilon) - J(\Theta - \epsilon)}{2\epsilon}
+\]</span> With multiple theta matrices, we can approximate the derivative <strong>with respect to</strong> <span class="math inline">\(\Theta_j\)</span> as follows: <span class="math display">\[
+\dfrac{\partial}{\partial\Theta_j}J(\Theta) \approx \dfrac{J(\Theta_1, \dots, \Theta_j + \epsilon, \dots, \Theta_n) - J(\Theta_1, \dots, \Theta_j - \epsilon, \dots, \Theta_n)}{2\epsilon}
+\]</span> A small value for <span class="math inline">\(\epsilon\)</span> (epsilon) such as <span class="math inline">\(\epsilon = 10 ^{-4}\)</span>, guarantees that the math works out properly. If the value for <span class="math inline">\(\epsilon\)</span> is too small, we can end up with numerical problems.</p>
+<p>Hence, we are only adding or subtracting epsilon to the <span class="math inline">\(\Theta_j\)</span> matrix. In octave we can do it as follows:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">epsilon = <span class="number">1e-4</span>;</div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:n,</div><div class="line">  thetaPlus = theta;</div><div class="line">  thetaPlus(<span class="built_in">i</span>) += epsilon;</div><div class="line">  thetaMinus = theta;</div><div class="line">  thetaMinus(<span class="built_in">i</span>) -= epsilon;</div><div class="line">  gradApprox(<span class="built_in">i</span>) = (J(thetaPlus) - J(thetaMinus))/(<span class="number">2</span>*epsilon)</div><div class="line"><span class="keyword">end</span>;</div></pre></td></tr></table></figure>
+<p>We previously saw how to calculate the deltaVector. So once we compute our gradApprox vector, we can check that gradApprox ≈ deltaVector.</p>
+<p>Once you have verified <strong>once</strong> that your backpropagation algorithm is correct, you don’t need to compute gradApprox again. The code to compute gradApprox can be very slow.</p>
+<h3 id="random-initialization">Random Initialization</h3>
+<p>Initializing all theta weights to zero does not work with neural networks. When we backpropagate, all nodes will update to the same value repeatedly. Instead we can randomly initialize our weights for our <span class="math inline">\(\Theta\)</span> matrices using the following method:</p>
+<img src="/2017/08/16/Backpropagation-in-Practice/rand-init.png" alt="rand-init.png" title="">
+<p>Hence, we initialize each <span class="math inline">\(\Theta^{(l)}_{ij}\)</span> to a random value between<span class="math inline">\([-\epsilon,\epsilon]\)</span>. Using the above formula guarantees that we get the desired bound. The same procedure applies to all the <span class="math inline">\(\Theta\)</span>’s. Below is some working code you could use to experiment.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">If the dimensions of Theta1 is <span class="number">10</span>x11, Theta2 is <span class="number">10</span>x11 and Theta3 is <span class="number">1</span>x11.</div><div class="line">Theta1 = <span class="built_in">rand</span>(<span class="number">10</span>,<span class="number">11</span>) * (<span class="number">2</span> * INIT_EPSILON) - INIT_EPSILON;</div><div class="line">Theta2 = <span class="built_in">rand</span>(<span class="number">10</span>,<span class="number">11</span>) * (<span class="number">2</span> * INIT_EPSILON) - INIT_EPSILON;</div><div class="line">Theta3 = <span class="built_in">rand</span>(<span class="number">1</span>,<span class="number">11</span>) * (<span class="number">2</span> * INIT_EPSILON) - INIT_EPSILON;</div></pre></td></tr></table></figure>
+<p>rand(x,y) is just a function in octave that will initialize a matrix of random real numbers between 0 and 1.</p>
+<h3 id="putting-it-together">Putting it Together</h3>
+<p>First, pick a network architecture; choose the layout of your neural network, including how many hidden units in each layer and how many layers in total you want to have.</p>
+<ul>
+<li>Number of input units = dimension of features</li>
+<li>Number of output units = number of classes</li>
+<li>Number of hidden units per layer = usually more the better (must balance with cost of computation as it increases with more hidden units)</li>
+<li>Defaults: 1 hidden layer. If you have more than 1 hidden layer, then it is recommended that you have the same number of units in every hidden layer.</li>
+</ul>
+<p><strong>Training a Neural Network</strong></p>
+<ol style="list-style-type: decimal">
+<li>Randomly initialize the weights</li>
+<li>Implement forward propagation to get for any</li>
+<li>Implement the cost function</li>
+<li>Implement backpropagation to compute partial derivatives</li>
+<li>Use gradient checking to confirm that your backpropagation works. Then disable gradient checking.</li>
+<li>Use gradient descent or a built-in optimization function to minimize the cost function with the weights in theta.</li>
+</ol>
+<p>When we perform forward and back propagation, we loop on every training example:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:m,</div><div class="line">   Perform forward propagation and backpropagation using example (x(<span class="built_in">i</span>),y(<span class="built_in">i</span>))</div><div class="line">   (Get activations a(l) and delta terms d(l) <span class="keyword">for</span> l = <span class="number">2</span>,...,L</div></pre></td></tr></table></figure>
+<p>The following image gives us an intuition of what is happening as we are implementing our neural network:</p>
+<img src="/2017/08/16/Backpropagation-in-Practice/neural-J.png" alt="neural-J.png" title="">
+<p>Ideally, you want . This will minimize our cost function. However, keep in mind that is not convex and thus we can end up in a local minimum instead.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/15/Cost-Function-and-Backpropagation/" rel="next" title="Cost Function and Backpropagation">
+                <i class="fa fa-chevron-left"></i> Cost Function and Backpropagation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Song Chao" />
+          <p class="site-author-name" itemprop="name">Song Chao</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/songc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/a9uHv6tea18To1A" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#backpropagation-in-practice"><span class="nav-number">1.</span> <span class="nav-text">Backpropagation in Practice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#implementation-note-unrolling-parameters"><span class="nav-number">1.1.</span> <span class="nav-text">Implementation Note: Unrolling Parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gradient-checking"><span class="nav-number">1.2.</span> <span class="nav-text">Gradient Checking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#random-initialization"><span class="nav-number">1.3.</span> <span class="nav-text">Random Initialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#putting-it-together"><span class="nav-number">1.4.</span> <span class="nav-text">Putting it Together</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song Chao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
