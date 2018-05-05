@@ -100,17 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/25/Cost-Function/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Cost Function We can measure the accuracy of our hypothesis function by using a cost function. This takes an average difference (actually a fancier version of an average) of all the results of the hy">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/image1.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/image2.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/image4.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/contour1.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/contour2.png">
-<meta property="og:image" content="http://yoursite.com/2017/07/25/Cost-Function/contour3.png">
 <meta property="og:updated_time" content="2017-07-26T12:40:00.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cost Function">
 <meta name="twitter:description" content="Cost Function We can measure the accuracy of our hypothesis function by using a cost function. This takes an average difference (actually a fancier version of an average) of all the results of the hy">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/25/Cost-Function/image1.png">
 
 
 
@@ -329,23 +322,23 @@
       
         <h1 id="cost-function">Cost Function</h1>
 <p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x’s and the actual output y’s. <span class="math display">\[J(\theta_0, \theta_1) = \dfrac {1}{2m} \displaystyle \sum _{i=1}^m \left ( \hat{y}_{i}- y_{i} \right)^2 = \dfrac {1}{2m} \displaystyle \sum _{i=1}^m \left (h_\theta (x_{i}) - y_{i} \right)^2\]</span></p>
-<p>To break it apart, it is <span class="math inline">\(\frac{1}{2} \bar{x}\)</span> where <span class="math inline">\(\bar{x}\)</span> is the mean of the squares of  <span class="math inline">\(h_\theta (x_{i}) - y_{i}\)</span>, or the difference between the predicted value and the actual value. <a id="more"></a> This function is otherwise called the “Squared error function”, or “Mean squared error”. The mean is halved <span class="math inline">\(\left(\frac{1}{2}\right)\)</span> as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the <span class="math inline">\(\frac{1}{2}\)</span> term. The following image summarizes what the cost function does: <img src="/2017/07/25/Cost-Function/image1.png" alt="image1.png" title=""></p>
+<p>To break it apart, it is <span class="math inline">\(\frac{1}{2} \bar{x}\)</span> where <span class="math inline">\(\bar{x}\)</span> is the mean of the squares of  <span class="math inline">\(h_\theta (x_{i}) - y_{i}\)</span>, or the difference between the predicted value and the actual value. <a id="more"></a> This function is otherwise called the “Squared error function”, or “Mean squared error”. The mean is halved <span class="math inline">\(\left(\frac{1}{2}\right)\)</span> as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the <span class="math inline">\(\frac{1}{2}\)</span> term. The following image summarizes what the cost function does: </p>
 <h1 id="cost-function---intuition-i">Cost Function - Intuition I</h1>
 <p>If we try to think of it in visual terms, our training data set is scattered on the x-y plane. We are trying to make a straight line (defined by <span class="math inline">\(h_\theta(x)\)</span>) which passes through these scattered data points.</p>
 <p>Our objective is to get the best possible line. The best possible line will be such so that the average squared vertical distances of <span class="math inline">\(J(\theta_0, \theta_1)\)</span>the scattered points from the line will be the least. Ideally, the line should pass through all the points of our training data set. In such a case, the value of  will be 0. The following example shows the ideal situation where we have a cost function of 0.</p>
-<img src="/2017/07/25/Cost-Function/image2.png" alt="image2.png" title="">
+
 <p>When <span class="math inline">\(\theta_1 = 1,\)</span> we get a slope of 1 which goes through every single data point in our model. Conversely, when <span class="math inline">\(\theta_1 = 0.5\)</span>, we see the vertical distance from our fit to the data points increase.</p>
 
 <p>This increases our cost function to 0.58. Plotting several other points yields to the following graph:</p>
-<img src="/2017/07/25/Cost-Function/image4.png" alt="image4.png" title="">
+
 <p>Thus as a goal, we should try to minimize the cost function. In this case,  <span class="math inline">\(\theta_1 = 1​\)</span>is our global minimum.</p>
 <h1 id="cost-function---intuition-ii">Cost Function - Intuition II</h1>
 <p>A contour plot is a graph that contains many contour lines. A contour line of a two variable function has a constant value at all points of the same line. An example of such a graph is the one to the right below.</p>
-<img src="/2017/07/25/Cost-Function/contour1.png" alt="contour1.png" title="">
+
 <p>Taking any color and going along the ‘circle’, one would expect to get the same value of the cost function. For example, the three green points found on the green line above have the same value for <span class="math inline">\(J(\theta_0,\theta_1)\)</span> and as a result, they are found along the same line. The circled x displays the value of the cost function for the graph on the left when <span class="math inline">\(\theta_0\)</span>= 800 and <span class="math inline">\(\theta_1\)</span>= -0.15. Taking another h(x) and plotting its contour plot, one gets the following graphs:</p>
-<img src="/2017/07/25/Cost-Function/contour2.png" alt="contour2.png" title="">
+
 <p>When <span class="math inline">\(\theta_0\)</span> = 360 and  <span class="math inline">\(\theta_1\)</span>= 0, the value of <span class="math inline">\(J(\theta_0,\theta_1)\)</span> in the contour plot gets closer to the center thus reducing the cost function error. Now giving our hypothesis function a slightly positive slope results in a better fit of the data.</p>
-<img src="/2017/07/25/Cost-Function/contour3.png" alt="contour3.png" title="">
+
 <p>The graph above minimizes the cost function as much as possible and consequently, the result of <span class="math inline">\(\theta_0\)</span> and <span class="math inline">\(\theta_1\)</span> tend to be around 0.12 and 250 respectively. Plotting those values on our graph to the right seems to put our point in the center of the inner most ‘circle’.</p>
 
       
@@ -475,7 +468,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

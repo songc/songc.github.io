@@ -100,15 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Sloving the Problem of Overfitting The Problem of Overfitting Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a \(y = \theta_0 + \theta_1x\) to">
-<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/overfitting.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost-function.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized1.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost.png">
 <meta property="og:updated_time" content="2017-08-05T12:42:05.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sloving the Problem of Overfitting">
 <meta name="twitter:description" content="Sloving the Problem of Overfitting The Problem of Overfitting Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a \(y = \theta_0 + \theta_1x\) to">
-<meta name="twitter:image" content="http://yoursite.com/2017/08/05/Sloving-the-Problem-of-Overfitting/overfitting.png">
 
 
 
@@ -327,7 +322,7 @@
       
         <h1 id="sloving-the-problem-of-overfitting">Sloving the Problem of Overfitting</h1>
 <h3 id="the-problem-of-overfitting">The Problem of Overfitting</h3>
-<p>Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a <span class="math inline">\(y = \theta_0 + \theta_1x\)</span> to a dataset. We see that the data doesn’t really lie on straight line, and so the fit is not very good. <a id="more"></a> <img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/overfitting.png" alt="overfitting.png" title=""></p>
+<p>Consider the problem of predicting y from x ∈ R. The leftmost figure below shows the result of fitting a <span class="math inline">\(y = \theta_0 + \theta_1x\)</span> to a dataset. We see that the data doesn’t really lie on straight line, and so the fit is not very good. <a id="more"></a> </p>
 <p>Instead, if we had added an extra feature <span class="math inline">\(x^2\)</span> , and fit <span class="math inline">\(y = \theta_0 + \theta_1x + \theta_2x^2\)</span> , then we obtain a slightly better fit to the data (See middle figure). Naively, it might seem that the more features we add, the better. However, there is also a danger in adding too many features: The rightmost figure is the result of fitting a <span class="math inline">\(5^{th}\)</span> order polynomial <span class="math inline">\(y = \sum_{j=0} ^5 \theta_j x^j\)</span>. We see that even though the fitted curve passes through the data perfectly, we would not expect this to be a very good predictor of, say, housing prices (y) for different living areas (x). Without formally defining what these terms mean, we’ll say the figure on the left shows an instance of <strong>underfitting</strong>—in which the data clearly shows structure not captured by the model—and the figure on the right is an example of <strong>overfitting</strong>.</p>
 <p>Underfitting, or high bias, is when the form of our hypothesis function h maps poorly to the trend of the data. It is usually caused by a function that is too simple or uses too few features. At the other extreme, overfitting, or high variance, is caused by a hypothesis function that fits the available data but does not generalize well to predict new data. It is usually caused by a complicated function that creates a lot of unnecessary curves and angles unrelated to the data.</p>
 <p>This terminology is applied to both linear and logistic regression. There are two main options to address the issue of overfitting:</p>
@@ -352,7 +347,7 @@
 \]</span> We’ll want to eliminate the influence of <span class="math inline">\(\theta_3 x^3\)</span> and <span class="math inline">\(\theta_4 x^4\)</span> . Without actually getting rid of these features or changing the form of our hypothesis, we can instead modify our <strong>cost function</strong>: <span class="math display">\[
 min_\theta\ \dfrac{1}{2m}\sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2 + 1000\cdot\theta_3^2 + 1000\cdot\theta_4^2
 \]</span> We’ve added two extra terms at the end to inflate the cost of <span class="math inline">\(\theta_3\)</span> and <span class="math inline">\(\theta_4\)</span>. Now, in order for the cost function to get close to zero, we will have to reduce the values of <span class="math inline">\(\theta_3\)</span> and <span class="math inline">\(\theta_4\)</span> to near zero. This will in turn greatly reduce the values of <span class="math inline">\(\theta_3 x^3\)</span> and <span class="math inline">\(\theta_4 x^4\)</span> in our hypothesis function. As a result, we see that the new hypothesis (depicted by the pink curve) looks like a quadratic function but fits the data better due to the extra small terms <span class="math inline">\(\theta_3 x^3\)</span> and <span class="math inline">\(\theta_4 x^4\)</span>.</p>
-<img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost-function.png" alt="regularized-cost-function.png" title="">
+
 <p>We could also regularize all of our theta parameters in a single summation as: <span class="math display">\[
 min_\theta\ \dfrac{1}{2m}\  \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2 + \lambda\ \sum_{j=1}^n \theta_j^2
 \]</span> The λ, or lambda, is the <strong>regularization parameter</strong>. It determines how much the costs of our theta parameters are inflated.</p>
@@ -373,14 +368,14 @@ min_\theta\ \dfrac{1}{2m}\  \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2 + \lamb
 <p>Recall that if m &lt; n, then <span class="math inline">\(X^TX\)</span> is non-invertible. However, when we add the term λ⋅L, then <span class="math inline">\(X^TX\)</span> + λ⋅L becomes invertible.</p>
 <h3 id="regularized-logistic-regression">Regularized Logistic Regression</h3>
 <p>We can regularize logistic regression in a similar way that we regularize linear regression. As a result, we can avoid overfitting. The following image shows how the regularized function, displayed by the pink line, is less likely to overfit than the non-regularized function represented by the blue line:</p>
-<img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized1.png" alt="regularized1.png" title="">
+
 <h4 id="cost-function-1">Cost Function</h4>
 <p>Recall that our cost function for logistic regression was: <span class="math display">\[
 J(\theta) = - \frac{1}{m} \sum_{i=1}^m \large[ y^{(i)}\ \log (h_\theta (x^{(i)})) + (1 - y^{(i)})\ \log (1 - h_\theta(x^{(i)})) \large]
 \]</span> We can regularize this equation by adding a term to the end: <span class="math display">\[
 J(\theta) = - \frac{1}{m} \sum_{i=1}^m \large[ y^{(i)}\ \log (h_\theta (x^{(i)})) + (1 - y^{(i)})\ \log (1 - h_\theta(x^{(i)}))\large] + \frac{\lambda}{2m}\sum_{j=1}^n \theta_j^2
 \]</span> The second sum, <span class="math inline">\(\sum_{j=1}^n \theta_j^2\)</span> <strong>means to explicitly exclude</strong> the bias term, <span class="math inline">\(\theta_0\)</span>. I.e. the θ vector is indexed from 0 to n (holding n+1 values, <span class="math inline">\(\theta_0\)</span> through <span class="math inline">\(\theta_0\)</span>), and this sum explicitly skips <span class="math inline">\(\theta_0\)</span>, by running from 1 to n, skipping 0. Thus, when computing the equation, we should continuously update the two following equations:</p>
-<img src="/2017/08/05/Sloving-the-Problem-of-Overfitting/regularized-cost.png" alt="regularized-cost.png" title="">
+
 
       
     </div>
@@ -509,7 +504,7 @@ J(\theta) = - \frac{1}{m} \sum_{i=1}^m \large[ y^{(i)}\ \log (h_\theta (x^{(i)})
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

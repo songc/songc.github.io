@@ -100,13 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/03/Logistic-Regression-Model/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Logistic Regression Model Cost Function We cannot use the same cost function that we use for linear regression because the Logistic Function will cause the output to be wavy, causing many local opti">
-<meta property="og:image" content="http://yoursite.com/2017/08/03/Logistic-Regression-Model/cost-positive.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/03/Logistic-Regression-Model/cost-negative.png">
 <meta property="og:updated_time" content="2017-08-03T13:41:41.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic Regression Model">
 <meta name="twitter:description" content="Logistic Regression Model Cost Function We cannot use the same cost function that we use for linear regression because the Logistic Function will cause the output to be wavy, causing many local opti">
-<meta name="twitter:image" content="http://yoursite.com/2017/08/03/Logistic-Regression-Model/cost-positive.png">
 
 
 
@@ -328,9 +325,9 @@
 <p>We cannot use the same cost function that we use for linear regression because the Logistic Function will cause the output to be wavy, causing many local optima. In other words, it will not be a convex function. <a id="more"></a> Instead, our cost function for logistic regression looks like: <span class="math display">\[
 \begin{align*}&amp; J(\theta) = \dfrac{1}{m} \sum_{i=1}^m \mathrm{Cost}(h_\theta(x^{(i)}),y^{(i)}) \newline &amp; \mathrm{Cost}(h_\theta(x),y) = -\log(h_\theta(x)) \; &amp; \text{if y = 1} \newline &amp; \mathrm{Cost}(h_\theta(x),y) = -\log(1-h_\theta(x)) \; &amp; \text{if y = 0}\end{align*}
 \]</span> When y = 1, we get the following plot for <span class="math inline">\(J(\theta)\)</span> vs <span class="math inline">\(h_\theta(x)\)</span>:</p>
-<img src="/2017/08/03/Logistic-Regression-Model/cost-positive.png" alt="cost-positive.png" title="">
+
 <p>Similarly, when y = 0, we get the following plot for <span class="math inline">\(J(\theta)\)</span> vs <span class="math inline">\(h_\theta(x)\)</span>:</p>
-<img src="/2017/08/03/Logistic-Regression-Model/cost-negative.png" alt="cost-negative.png" title="">
+
 <p><span class="math display">\[
 \begin{align*}&amp; \mathrm{Cost}(h_\theta(x),y) = 0 \text{ if } h_\theta(x) = y \newline &amp; \mathrm{Cost}(h_\theta(x),y) \rightarrow \infty \text{ if } y = 0 \; \mathrm{and} \; h_\theta(x) \rightarrow 1 \newline &amp; \mathrm{Cost}(h_\theta(x),y) \rightarrow \infty \text{ if } y = 1 \; \mathrm{and} \; h_\theta(x) \rightarrow 0 \newline \end{align*}
 \]</span> If our correct answer ‘y’ is 0, then the cost function will be 0 if our hypothesis function also outputs 0. If our hypothesis approaches 1, then the cost function will approach infinity.</p>
@@ -491,7 +488,7 @@ J(\theta) = - \frac{1}{m} \displaystyle \sum_{i=1}^m [y^{(i)}\log (h_\theta (x^{
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

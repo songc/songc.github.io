@@ -100,14 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Backpropagation in Practice Implementation Note: Unrolling Parameters With neural networks, we are working with sets of matrices: \[ \begin{align*} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \">
-<meta property="og:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/unrolling.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/rand-init.png">
-<meta property="og:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/neural-J.png">
 <meta property="og:updated_time" content="2017-08-17T14:18:23.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Backpropagation in Practice">
 <meta name="twitter:description" content="Backpropagation in Practice Implementation Note: Unrolling Parameters With neural networks, we are working with sets of matrices: \[ \begin{align*} \Theta^{(1)}, \Theta^{(2)}, \Theta^{(3)}, \dots \">
-<meta name="twitter:image" content="http://yoursite.com/2017/08/16/Backpropagation-in-Practice/unrolling.png">
 
 
 
@@ -333,7 +329,7 @@
 <p>If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11, then we can get back our original matrices from the “unrolled” versions as follows:</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Theta1 = <span class="built_in">reshape</span>(thetaVector(<span class="number">1</span>:<span class="number">110</span>),<span class="number">10</span>,<span class="number">11</span>)</div><div class="line">Theta2 = <span class="built_in">reshape</span>(thetaVector(<span class="number">111</span>:<span class="number">220</span>),<span class="number">10</span>,<span class="number">11</span>)</div><div class="line">Theta3 = <span class="built_in">reshape</span>(thetaVector(<span class="number">221</span>:<span class="number">231</span>),<span class="number">1</span>,<span class="number">11</span>)</div></pre></td></tr></table></figure>
 <p>To summarize:</p>
-<img src="/2017/08/16/Backpropagation-in-Practice/unrolling.png" alt="unrolling.png" title="">
+
 <h3 id="gradient-checking">Gradient Checking</h3>
 <p>Gradient checking will assure that our backpropagation works as intended. We can approximate the derivative of our cost function with: <span class="math display">\[
 \dfrac{\partial}{\partial\Theta}J(\Theta) \approx \dfrac{J(\Theta + \epsilon) - J(\Theta - \epsilon)}{2\epsilon}
@@ -346,7 +342,7 @@
 <p>Once you have verified <strong>once</strong> that your backpropagation algorithm is correct, you don’t need to compute gradApprox again. The code to compute gradApprox can be very slow.</p>
 <h3 id="random-initialization">Random Initialization</h3>
 <p>Initializing all theta weights to zero does not work with neural networks. When we backpropagate, all nodes will update to the same value repeatedly. Instead we can randomly initialize our weights for our <span class="math inline">\(\Theta\)</span> matrices using the following method:</p>
-<img src="/2017/08/16/Backpropagation-in-Practice/rand-init.png" alt="rand-init.png" title="">
+
 <p>Hence, we initialize each <span class="math inline">\(\Theta^{(l)}_{ij}\)</span> to a random value between<span class="math inline">\([-\epsilon,\epsilon]\)</span>. Using the above formula guarantees that we get the desired bound. The same procedure applies to all the <span class="math inline">\(\Theta\)</span>’s. Below is some working code you could use to experiment.</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">If the dimensions of Theta1 is <span class="number">10</span>x11, Theta2 is <span class="number">10</span>x11 and Theta3 is <span class="number">1</span>x11.</div><div class="line">Theta1 = <span class="built_in">rand</span>(<span class="number">10</span>,<span class="number">11</span>) * (<span class="number">2</span> * INIT_EPSILON) - INIT_EPSILON;</div><div class="line">Theta2 = <span class="built_in">rand</span>(<span class="number">10</span>,<span class="number">11</span>) * (<span class="number">2</span> * INIT_EPSILON) - INIT_EPSILON;</div><div class="line">Theta3 = <span class="built_in">rand</span>(<span class="number">1</span>,<span class="number">11</span>) * (<span class="number">2</span> * INIT_EPSILON) - INIT_EPSILON;</div></pre></td></tr></table></figure>
 <p>rand(x,y) is just a function in octave that will initialize a matrix of random real numbers between 0 and 1.</p>
@@ -370,7 +366,7 @@
 <p>When we perform forward and back propagation, we loop on every training example:</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:m,</div><div class="line">   Perform forward propagation and backpropagation using example (x(<span class="built_in">i</span>),y(<span class="built_in">i</span>))</div><div class="line">   (Get activations a(l) and delta terms d(l) <span class="keyword">for</span> l = <span class="number">2</span>,...,L</div></pre></td></tr></table></figure>
 <p>The following image gives us an intuition of what is happening as we are implementing our neural network:</p>
-<img src="/2017/08/16/Backpropagation-in-Practice/neural-J.png" alt="neural-J.png" title="">
+
 <p>Ideally, you want . This will minimize our cost function. However, keep in mind that is not convex and thus we can end up in a local minimum instead.</p>
 
       
@@ -500,7 +496,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

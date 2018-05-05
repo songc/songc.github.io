@@ -100,12 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/02/Classification/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Classification To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well b">
-<meta property="og:image" content="http://yoursite.com/2017/08/02/Classification/Logistic_function.png">
 <meta property="og:updated_time" content="2017-08-02T12:15:24.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Classification">
 <meta name="twitter:description" content="Classification To attempt classification, one method is to use linear regression and map all predictions greater than 0.5 as a 1 and all less than 0.5 as a 0. However, this method doesn’t work well b">
-<meta name="twitter:image" content="http://yoursite.com/2017/08/02/Classification/Logistic_function.png">
 
 
 
@@ -329,7 +327,7 @@
 <p>Our new form uses the “Sigmoid Function,” also called the “Logistic Function”: <span class="math display">\[
 \begin{align*}&amp; h_\theta (x) = g ( \theta^T x ) \newline \newline&amp; z = \theta^T x \newline&amp; g(z) = \dfrac{1}{1 + e^{-z}}\end{align*}
 \]</span> The following image shows us what the sigmoid function looks like:</p>
-<img src="/2017/08/02/Classification/Logistic_function.png" alt="Logistic_function.png" title="">
+
 <p>The function g(z), shown here, maps any real number to the (0, 1) interval, making it useful for transforming an arbitrary-valued function into a function better suited for classification.</p>
 <p><span class="math inline">\(h_\theta (x)\)</span> will give us the <strong>probability</strong> that our output is 1. For example, <span class="math inline">\(h_\theta (x) = 0.7\)</span> gives us a probability of 70% that our output is 1. Our probability that our prediction is 0 is just the complement of our probability that it is 1 (e.g. if probability that it is 1 is 70%, then the probability that it is 0 is 30%). <span class="math display">\[
 \begin{align*}&amp; h_\theta(x) = P(y=1 | x ; \theta) = 1 - P(y=0 | x ; \theta) \newline&amp; P(y = 0 | x;\theta) + P(y = 1 | x ; \theta) = 1\end{align*}
@@ -478,7 +476,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

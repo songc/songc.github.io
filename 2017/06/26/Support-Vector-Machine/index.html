@@ -100,12 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/26/Support-Vector-Machine/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Support Vertor Machine   支持向量机（Support Vector Machine，常简称为SVM）是一种监督式学习的方法，可广泛地应用于统计分类以及回归分析。支持向量机属于一般化线性分类器，这族分类器的特点是他们能够同时最小化经验误差与最大化几何边缘区，因此支持向量机也被称为最大边缘区分类器。 支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间">
-<meta property="og:image" content="http://yoursite.com/2017/06/26/Support-Vector-Machine/image1.jpg">
 <meta property="og:updated_time" content="2017-07-08T09:10:01.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Support Vector Machine">
 <meta name="twitter:description" content="Support Vertor Machine   支持向量机（Support Vector Machine，常简称为SVM）是一种监督式学习的方法，可广泛地应用于统计分类以及回归分析。支持向量机属于一般化线性分类器，这族分类器的特点是他们能够同时最小化经验误差与最大化几何边缘区，因此支持向量机也被称为最大边缘区分类器。 支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间">
-<meta name="twitter:image" content="http://yoursite.com/2017/06/26/Support-Vector-Machine/image1.jpg">
 
 
 
@@ -326,7 +324,7 @@
 <blockquote>
 <ol style="list-style-type: decimal">
 <li><p>支持向量机（Support Vector Machine，常简称为SVM）是一种监督式学习的方法，可广泛地应用于统计分类以及回归分析。支持向量机属于一般化线性分类器，这族分类器的特点是他们能够同时最小化经验误差与最大化几何边缘区，因此支持向量机也被称为最大边缘区分类器。</p></li>
-<li><p>支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间隔超平面。在分开数据的超平面的两边建有两个互相平行的超平面，分隔超平面使两个平行超平面的距离最大化。假定平行超平面间的距离或差距越大，分类器的总误差越小。 <a id="more"></a> 在分类时，可能的符合要求的决策面会有多个，SVM会选择间隔最大的那个。对于高维空间中的分类，SVM可以通过<strong>核函数</strong>来解决高维空间的分类问题。对于下图中的3条线，SVM会选择中间的作为决策面，因为它距离2边的分类的间隔最大。<img src="/2017/06/26/Support-Vector-Machine/image1.jpg" alt="image1.jpg" title=""> <strong>SVM 在边界分明时效果好，数据量大的时候效果下降，并且训练时间会比较的长，有太大的噪声时，效果也不太好</strong> 同样的数据采用naive bayes算法，训练时间只需1s多，但是采用SVM时(kernel=linear,其他参数默认),训练时间花了193s多，我都以为 是程序卡死了。 sklearn 中支持向量机的基本使用方法 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from sklearn import svm</div><div class="line">sclt=svm.SVC(kernel=&apos;linear&apos;)</div><div class="line">t0 = time()</div><div class="line">sclt.fit(features_train,labels_train);</div><div class="line">print &quot;train time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">t0 = time()</div><div class="line">labels_predict=sclt.predict(features_test)</div><div class="line">print &quot;predict time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">accuracy_score(labels_test,labels_predict)</div></pre></td></tr></table></figure></p></li>
+<li><p>支持向量机将向量映射到一个更高维的空间里，在这个空间里建立有一个最大间隔超平面。在分开数据的超平面的两边建有两个互相平行的超平面，分隔超平面使两个平行超平面的距离最大化。假定平行超平面间的距离或差距越大，分类器的总误差越小。 <a id="more"></a> 在分类时，可能的符合要求的决策面会有多个，SVM会选择间隔最大的那个。对于高维空间中的分类，SVM可以通过<strong>核函数</strong>来解决高维空间的分类问题。对于下图中的3条线，SVM会选择中间的作为决策面，因为它距离2边的分类的间隔最大。 <strong>SVM 在边界分明时效果好，数据量大的时候效果下降，并且训练时间会比较的长，有太大的噪声时，效果也不太好</strong> 同样的数据采用naive bayes算法，训练时间只需1s多，但是采用SVM时(kernel=linear,其他参数默认),训练时间花了193s多，我都以为 是程序卡死了。 sklearn 中支持向量机的基本使用方法 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from sklearn import svm</div><div class="line">sclt=svm.SVC(kernel=&apos;linear&apos;)</div><div class="line">t0 = time()</div><div class="line">sclt.fit(features_train,labels_train);</div><div class="line">print &quot;train time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">t0 = time()</div><div class="line">labels_predict=sclt.predict(features_test)</div><div class="line">print &quot;predict time:&quot;, round(time()-t0,3),&quot;s&quot;</div><div class="line">accuracy_score(labels_test,labels_predict)</div></pre></td></tr></table></figure></p></li>
 </ol>
 </blockquote>
 <p>其中该算法有3个比较重要的参数分别是Kernel(=linear，rbf，),C(=整数), kernel是linear时，决策面是个线性的，是一条直线，kernel是rbf时，决策面试不规则的直线。</p>
@@ -456,7 +454,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

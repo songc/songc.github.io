@@ -100,15 +100,10 @@
 <meta property="og:url" content="http://yoursite.com/2017/09/09/Diagnosing-Bias-vs-Variance/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
 <meta property="og:description" content="Bias vs. Variance Diagnosing Bias vs. Variance In this section we examine the relationship between the degree of the polynomial d and the underfitting or overfitting of our hypothesis.  We need to">
-<meta property="og:image" content="http://yoursite.com/2017/09/09/Diagnosing-Bias-vs-Variance/biasAndVariance.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/09/Diagnosing-Bias-vs-Variance/lambda.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/09/Diagnosing-Bias-vs-Variance/highBias.png">
-<meta property="og:image" content="http://yoursite.com/2017/09/09/Diagnosing-Bias-vs-Variance/highVariance.png">
 <meta property="og:updated_time" content="2017-09-09T13:45:53.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Diagnosing Bias vs Variance">
 <meta name="twitter:description" content="Bias vs. Variance Diagnosing Bias vs. Variance In this section we examine the relationship between the degree of the polynomial d and the underfitting or overfitting of our hypothesis.  We need to">
-<meta name="twitter:image" content="http://yoursite.com/2017/09/09/Diagnosing-Bias-vs-Variance/biasAndVariance.png">
 
 
 
@@ -336,9 +331,9 @@
 <p><strong>High bias (underfitting)</strong>: both <span class="math inline">\(J_{train}(\Theta)\)</span> and <span class="math inline">\(J_{CV}(\Theta)\)</span> will be high. Also,  <span class="math inline">\(J_{train}(\Theta) \approx J_{CV}(\Theta)\)</span>.</p>
 <p><strong>High variance (overfitting)</strong>: <span class="math inline">\(J_{train}(\Theta)\)</span> will be low and <span class="math inline">\(J_{CV}(\Theta)\)</span> will be much greater than <span class="math inline">\(J_{train}(\Theta)\)</span>.</p>
 <p>The is summarized in the figure below:</p>
-<img src="/2017/09/09/Diagnosing-Bias-vs-Variance/biasAndVariance.png" alt="biasAndVariance.png" title="">
+
 <h3 id="regularization-and-biasvariance">Regularization and Bias/Variance</h3>
-<img src="/2017/09/09/Diagnosing-Bias-vs-Variance/lambda.png" alt="lambda.png" title="">
+
 <p>In the figure above, we see that as <span class="math inline">\(\lambda\)</span> increases, our fit becomes more rigid. On the other hand, as <span class="math inline">\(\lambda\)</span> approaches 0, we tend to over overfit the data. So how do we choose our parameter <span class="math inline">\(\lambda\)</span> to get it ‘just right’ ? In order to choose the model and the regularization term <span class="math inline">\(\lambda\)</span>, we need to:</p>
 <ol style="list-style-type: decimal">
 <li><p>Create a list of lambdas (i.e. λ∈{0,0.01,0.02,0.04,0.08,0.16,0.32,0.64,1.28,2.56,5.12,10.24});</p></li>
@@ -360,12 +355,12 @@
 <p><strong>Low training set size</strong>: causes <span class="math inline">\(J_{train}(\Theta)\)</span> to be low and  <span class="math inline">\(J_{CV}(\Theta)\)</span> to be high.</p>
 <p><strong>Large training set size</strong>: causes both  <span class="math inline">\(J_{train}(\Theta)\)</span> and <span class="math inline">\(J_{CV}(\Theta)\)</span> to be high with  <span class="math inline">\(J_{train}(\Theta) \approx J_{CV}(\Theta)\)</span>.</p>
 <p>If a learning algorithm is suffering from <strong>high bias</strong>, getting more training data will not <strong>(by itself) </strong>help much.</p>
-<img src="/2017/09/09/Diagnosing-Bias-vs-Variance/highBias.png" alt="highBias.png" title="">
+
 <p><strong>Experiencing high variance:</strong></p>
 <p><strong>Low training set size</strong>:  <span class="math inline">\(J_{train}(\Theta)\)</span> will be low and <span class="math inline">\(J_{CV}(\Theta)\)</span> will be high.</p>
 <p><strong>Large training set size</strong>:  <span class="math inline">\(J_{train}(\Theta)\)</span> increases with training set size and <span class="math inline">\(J_{CV}(\Theta)\)</span> continues to decrease without leveling off. Also,  <span class="math inline">\(J_{train}(\Theta)\)</span> &lt; <span class="math inline">\(J_{CV}(\Theta)\)</span> but the difference between them remains significant.</p>
 <p>If a learning algorithm is suffering from <strong>high variance</strong>, getting more training data is likely to help.</p>
-<img src="/2017/09/09/Diagnosing-Bias-vs-Variance/highVariance.png" alt="highVariance.png" title="">
+
 <h3 id="deciding-what-to-do-next-revisited">Deciding What to Do Next Revisited</h3>
 <p>Our decision process can be broken down as follows:</p>
 <ul>
@@ -516,7 +511,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
