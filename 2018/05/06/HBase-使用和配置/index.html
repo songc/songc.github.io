@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Machine Learning,Andrew Ng," />
+  <meta name="keywords" content="HBase," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="Features and Polynomial Regression We can improve our features and the form of our hypothesis function in a couple different ways. We can combine multiple features into one. For example, we can comb">
-<meta name="keywords" content="Machine Learning,Andrew Ng">
+<meta name="description" content="Hbase使用和配置 配置  hbase-env.sh 设置Java_home  1export JAVA_HOME=/usr/local/lib/jdk1.8/">
+<meta name="keywords" content="HBase">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Features and Polynomial Regression">
-<meta property="og:url" content="http://yoursite.com/2017/07/26/Features-and-Polynomial-Regression/index.html">
+<meta property="og:title" content="HBase 使用和配置">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/HBase-使用和配置/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
-<meta property="og:description" content="Features and Polynomial Regression We can improve our features and the form of our hypothesis function in a couple different ways. We can combine multiple features into one. For example, we can comb">
-<meta property="og:updated_time" content="2017-07-28T12:06:39.412Z">
+<meta property="og:description" content="Hbase使用和配置 配置  hbase-env.sh 设置Java_home  1export JAVA_HOME=/usr/local/lib/jdk1.8/">
+<meta property="og:updated_time" content="2018-05-06T08:09:38.177Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Features and Polynomial Regression">
-<meta name="twitter:description" content="Features and Polynomial Regression We can improve our features and the form of our hypothesis function in a couple different ways. We can combine multiple features into one. For example, we can comb">
+<meta name="twitter:title" content="HBase 使用和配置">
+<meta name="twitter:description" content="Hbase使用和配置 配置  hbase-env.sh 设置Java_home  1export JAVA_HOME=/usr/local/lib/jdk1.8/">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/26/Features-and-Polynomial-Regression/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/HBase-使用和配置/"/>
 
 
 
 
 
-  <title>Features and Polynomial Regression | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>HBase 使用和配置 | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/Features-and-Polynomial-Regression/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/HBase-使用和配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Chao">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Features and Polynomial Regression</h1>
+          <h1 class="post-title" itemprop="name headline">HBase 使用和配置</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T20:58:06+08:00">
-                2017-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T16:07:27+08:00">
+                2018-05-06
               </time>
             
 
@@ -320,16 +320,37 @@
       
 
       
-        <h1 id="features-and-polynomial-regression">Features and Polynomial Regression</h1>
-<p>We can improve our features and the form of our hypothesis function in a couple different ways.</p>
-<p>We can <strong>combine</strong> multiple features into one. For example, we can combine <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> into a new feature <span class="math inline">\(x_3\)</span> by taking <span class="math inline">\(x_1\)</span>⋅<span class="math inline">\(x_2\)</span>. <a id="more"></a> ### <strong>Polynomial Regression</strong></p>
-<p>Our hypothesis function need not be linear (a straight line) if that does not fit the data well.</p>
-<p>We can <strong>change the behavior or curve</strong> of our hypothesis function by making it a quadratic, cubic or square root function (or any other form).</p>
-<p>For example, if our hypothesis function is <span class="math inline">\(h_\theta(x) = \theta_0 + \theta_1 x_1\)</span> then we can create additional features based on <span class="math inline">\(x_1\)</span>, to get the quadratic function <span class="math inline">\(h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_1^2\)</span> or the cubic function <span class="math inline">\(h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_1^2 + \theta_3 x_1^3\)</span></p>
-<p>In the cubic version, we have created new features <span class="math inline">\(x_2​\)</span> and <span class="math inline">\(x_3​\)</span> where <span class="math inline">\(x_2 = x_1^2​\)</span> and <span class="math inline">\(x_3 = x_1^3​\)</span>.</p>
-<p>To make it a square root function, we could do: <span class="math inline">\(h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 \sqrt{x_1}\)</span></p>
-<p>One important thing to keep in mind is, if you choose your features this way then feature scaling becomes very important.</p>
-<p>eg. if <span class="math inline">\(x_1\)</span> has range 1 - 1000 then range of <span class="math inline">\(x_1^2\)</span> becomes 1 - 1000000 and that of <span class="math inline">\(x_1^3\)</span> becomes 1 - 1000000000</p>
+        <h3 id="hbase使用和配置">Hbase使用和配置</h3>
+<h4 id="配置">配置</h4>
+<ol style="list-style-type: decimal">
+<li>hbase-env.sh 设置Java_home</li>
+</ol>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/lib/jdk1.8/</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<ol start="2" style="list-style-type: decimal">
+<li>back-masters 设置 备用master</li>
+</ol>
+<p>一行对应一个主机名，这个可有可无的。</p>
+<ol start="3" style="list-style-type: decimal">
+<li>hbase-site.xml</li>
+</ol>
+<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://spark-test-0:9000/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--这个要和hadoop的core-site.xml中的fs.defaultFS的设置对应，主机名和端口号一直，后边的hbase是在hdfs中的目录名，不需要自己重建，hbase启动后会自己创建--&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>spark-test-0,spark-test-1,spark-test-2,spark-test-3,spark-test-4,spark-test-5<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.property.dataDir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/usr/local/hbase/zookeeper<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<ol start="4" style="list-style-type: decimal">
+<li>regionservers</li>
+</ol>
+<p>设置运行regionservers服务的节点，一行对应一个主机名，可以有多个（一般和master不在同一个节点）</p>
+<h4 id="使用">使用</h4>
+<ol style="list-style-type: decimal">
+<li>启动 start-hbase.sh 启动hbase。</li>
+<li>关闭 stop-hbase.sh 关闭hbase。</li>
+<li>启动和关闭Thrift 服务（这个是用于其他编程语言的接口，不需要的话，没必要用） bin/hbase-daemon.sh stop thrift. To start Thrift on a node, run the command bin/hbase-daemon.sh start thrift.</li>
+</ol>
+<h4 id="注意事项">注意事项</h4>
+<ol style="list-style-type: decimal">
+<li>web ui 默认端口。 16010 (1.01版本之前是60010)</li>
+<li>RegionServer 管理Region，和对Region进行分区。</li>
+<li>Region只有在RegionServers的机器上存在。</li>
+</ol>
 
       
     </div>
@@ -359,9 +380,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-          
-            <a href="/tags/Andrew-Ng/" rel="tag"># Andrew Ng</a>
+            <a href="/tags/HBase/" rel="tag"># HBase</a>
           
         </div>
       
@@ -374,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/26/Gradient-Descent-For-Multiple-Variables/" rel="next" title="Gradient Descent For Multiple Variables">
-                <i class="fa fa-chevron-left"></i> Gradient Descent For Multiple Variables
+              <a href="/2018/05/05/Hadoop-使用和配置/" rel="next" title="Hadoop 使用和配置">
+                <i class="fa fa-chevron-left"></i> Hadoop 使用和配置
               </a>
             
           </div>
@@ -384,8 +403,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/28/Git-基本命令/" rel="prev" title="常用Git命令">
-                常用Git命令 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/06/HBase-Split/" rel="prev" title="HBase Split">
+                HBase Split <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -526,7 +545,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#features-and-polynomial-regression"><span class="nav-number">1.</span> <span class="nav-text">Features and Polynomial Regression</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hbase使用和配置"><span class="nav-number">1.</span> <span class="nav-text">Hbase使用和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置"><span class="nav-number">1.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">1.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
             
 
           </div>

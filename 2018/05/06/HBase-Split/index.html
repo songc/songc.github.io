@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="HBase," />
 
 
 
@@ -93,12 +93,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Songc&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta name="description" content="手动split 自动split在前面说了并不如自己管理split靠谱（但这也增加了程序员的运维成本）， 如果你也下定决心要自己动手，那还需要修改配置文件hbase-site.xml中的 hbase.hregion.max.filesize（对，就是前面公式里的第二项）为一个较大的值，比如100G。 因此这里需要说下手动split。只需要在HBase shell中执行一条语句： split ‘reg">
+<meta name="keywords" content="HBase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase Split">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/HBase-Split/index.html">
 <meta property="og:site_name" content="Songc&#39;s Blog">
+<meta property="og:description" content="手动split 自动split在前面说了并不如自己管理split靠谱（但这也增加了程序员的运维成本）， 如果你也下定决心要自己动手，那还需要修改配置文件hbase-site.xml中的 hbase.hregion.max.filesize（对，就是前面公式里的第二项）为一个较大的值，比如100G。 因此这里需要说下手动split。只需要在HBase shell中执行一条语句： split ‘reg">
+<meta property="og:updated_time" content="2018-05-06T08:12:15.381Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Songc&#39;s Blog">
+<meta name="twitter:title" content="HBase Split">
+<meta name="twitter:description" content="手动split 自动split在前面说了并不如自己管理split靠谱（但这也增加了程序员的运维成本）， 如果你也下定决心要自己动手，那还需要修改配置文件hbase-site.xml中的 hbase.hregion.max.filesize（对，就是前面公式里的第二项）为一个较大的值，比如100G。 因此这里需要说下手动split。只需要在HBase shell中执行一条语句： split ‘reg">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/HBase-Split/"/>
 
 
 
 
 
-  <title>归档 | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>HBase Split | Songc's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -157,7 +162,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left  page-archive  ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -241,407 +246,160 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 50 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/HBase-Split/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Chao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Songc's Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HBase Split</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T16:10:21+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <p><strong>手动split</strong> 自动split在前面说了并不如自己管理split靠谱（但这也增加了程序员的运维成本）， 如果你也下定决心要自己动手，那还需要修改配置文件hbase-site.xml中的 hbase.hregion.max.filesize（对，就是前面公式里的第二项）为一个较大的值，比如100G。 因此这里需要说下手动split。只需要在HBase shell中执行一条语句： split ‘regionName’, ‘splitKey’ 更多用法可以在HBase shell中查。另外也可以在HBase的GUI管理界面中直接操作，如果split point不写，相当于只指定了表要被切分，则HBase会自行将表切分一次。经过几次试验， 这类“自动”切分对于少量数据（比如100条）或没有数据的region不会切分， 每个region都会被测试一次要不要切分。</p>
+<h3 id="shell">shell</h3>
+<p>指明分割点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create &apos;t1&apos;,&apos;f1&apos; ,SPLITS=&gt;[&apos;10&apos;,&apos;20&apos;,&apos;30&apos;,&apos;40&apos;]1</div></pre></td></tr></table></figure>
+<p>HexStringSplit指明分割策略，-c 10指明要分割的区域数量，-f指明表中的列族，用“:”分割。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hbase org.apache.hadoop.hbase.util.RegionSplitter test_table HexStringSplit -c 10 -f f11</div></pre></td></tr></table></figure>
+<p>根据文件创建分区并压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create &apos;split_table_test&apos;,&#123;NAME =&gt;&apos;cf&apos;, COMPRESSION =&gt; &apos;SNAPPY&apos;&#125;, &#123;SPLITS_FILE =&gt; &apos;region_split_info.txt&apos;&#125;  1</div></pre></td></tr></table></figure>
+<p>COMPRESSION 默认值NONE，即不使用压缩</p>
+<p><strong>创建表t1,将表依据分割算法HexStringSplit分布在15个Region里,命令如下:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hbase(main):006:0* create &apos;t3&apos;,&apos;f1&apos;,&#123;NUMREGIONS=&gt;15,SPLITALGO=&gt;&apos;HexStringSplit&apos;&#125;</div></pre></td></tr></table></figure>
+<p><strong>创建表t1,指定切分点,命令如下:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hbase(main):007:0&gt; create &apos;t4&apos;,&apos;f1&apos;,&#123;SPLITS=&gt;[&apos;10&apos;,&apos;20&apos;,&apos;30&apos;,&apos;40&apos;]&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HBase/" rel="tag"># HBase</a>
+          
         </div>
       
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/HBase-Split/" itemprop="url">
-              
-                <span itemprop="name">HBase Split</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T16:10:21+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
 
       
       
       
 
       
-      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/HBase-使用和配置/" rel="next" title="HBase 使用和配置">
+                <i class="fa fa-chevron-left"></i> HBase 使用和配置
+              </a>
+            
+          </div>
 
-      
+          <span class="post-nav-divider"></span>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/HBase-使用和配置/" itemprop="url">
-              
-                <span itemprop="name">HBase 使用和配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T16:07:27+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/05/Hadoop-使用和配置/" itemprop="url">
-              
-                <span itemprop="name">Hadoop 使用和配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-05T17:29:31+08:00"
-              content="2018-05-05" >
-          05-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/05/Find-命令/" itemprop="url">
-              
-                <span itemprop="name">Find 命令</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-05T17:27:48+08:00"
-              content="2018-05-05" >
-          05-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/04/Hadoop-shell-常用命令/" itemprop="url">
-              
-                <span itemprop="name">Hadoop shell 常用命令</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-04T10:35:19+08:00"
-              content="2018-05-04" >
-          05-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/04/Bash-Cheatsheet/" itemprop="url">
-              
-                <span itemprop="name">Bash Cheatsheet</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-04T10:31:59+08:00"
-              content="2018-05-04" >
-          05-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
         </div>
       
-      
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/10/Java-Web-连接Hadoop遇到的问题和解决办法/" itemprop="url">
-              
-                <span itemprop="name">Java Web 连接Hadoop遇到的问题和解决办法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-10T20:49:56+08:00"
-              content="2017-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/10/Spring-boot-使用中遇到的问题和解决办法/" itemprop="url">
-              
-                <span itemprop="name">Spring boot 使用中遇到的问题和解决办法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-10T20:47:54+08:00"
-              content="2017-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/09/127-0-0-0-系列地址和本机IP的区别/" itemprop="url">
-              
-                <span itemprop="name">127.0.0.0 系列地址和本机IP的区别</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-09T22:29:20+08:00"
-              content="2017-09-09" >
-          09-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/09/Building-a-Spam-Classifier/" itemprop="url">
-              
-                <span itemprop="name">Building a Spam Classifier</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-09T21:47:23+08:00"
-              content="2017-09-09" >
-          09-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -649,6 +407,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -668,8 +430,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -742,6 +513,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell"><span class="nav-number">1.</span> <span class="nav-text">shell</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -855,11 +642,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
